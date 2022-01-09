@@ -1,20 +1,13 @@
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
-import {
-  IndexPath,
-  Select,
-  SelectItem,
-  Button,
-  Icon,
-  Layout,
-  Input,
-  Text,
-} from "@ui-kitten/components";
-import { ErrorMessage, Formik } from "formik";
+import { SelectItem, Button, Icon, Layout } from "@ui-kitten/components";
+import { Formik } from "formik";
 import * as Yup from "yup";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import { generateIndexPathArray } from "@utils/select.util";
+import FormikInput from "@components/formik/input.component";
+import FormikMultiselect from "@components/formik/multiselect.component";
 
 const styles = StyleSheet.create({
   container: {
@@ -32,10 +25,6 @@ const styles = StyleSheet.create({
 const SearchIcon = (props: unknown) => <Icon {...props} name="search" />;
 
 const transmissions = ["manuálna", "automatická"];
-
-const getSelectedValues = (values: unknown[], indexPaths: IndexPath[]) => {
-  return indexPaths.map((indexPath) => values[indexPath.row]);
-};
 
 const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const [selectedIndex, setSelectedIndex] = React.useState(
@@ -58,37 +47,27 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           .required(),
       })}
     >
-      {({ handleChange, handleSubmit, values, errors, setFieldValue }) => (
+      {({ handleSubmit }) => (
         <Layout style={styles.container}>
-          <Input
+          <FormikInput
+            name="query"
             label="Model"
             placeholder="Zadajte frázu (napr. Škoda Fábia)"
-            onChangeText={handleChange("query")}
-            value={values.query}
             style={styles.select}
-            status={errors.query ? "danger" : "primary"}
           />
 
-          <Select
+          <FormikMultiselect
+            name="transmission"
             label="Typ prevodovky"
             placeholder="Zvoľte aspoň 1 možnosť"
-            multiSelect={true}
-            selectedIndex={selectedIndex}
-            onSelect={(_index) => {
-              const index = _index as IndexPath[];
-              const selectedValues = getSelectedValues(transmissions, index);
-
-              setSelectedIndex(index);
-              setFieldValue("transmission", selectedValues);
-            }}
-            value={values.transmission.join(", ")}
+            values={transmissions}
             style={styles.select}
-            status={errors.transmission ? "danger" : "primary"}
+            allSelected={true}
           >
             {transmissions.map((transmission) => (
               <SelectItem title={transmission} key={transmission} />
             ))}
-          </Select>
+          </FormikMultiselect>
 
           <Button
             accessoryRight={SearchIcon}
