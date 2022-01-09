@@ -6,15 +6,15 @@ module.exports = function(api) {
       [
         'module-resolver',
         {
-          root: ["./"],
           alias: {
-            "@assets": "./assets",
-            "@components": "./components",
-            "@constants": "./constants",
-            "@hooks": "./hooks",
-            "@screens": "./screens",
-            "@themes": "./themes",
-            "@ctypes": "./types",
+            "@assets": "./src/assets",
+            "@components": "./src/components",
+            "@constants": "./src/constants",
+            "@hooks": "./src/hooks",
+            "@screens": "./src/screens",
+            "@themes": "./src/themes",
+            "@ctypes": "./src/types",
+            "@utils": "./src/utils",
           },
         },
       ],

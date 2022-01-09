@@ -7,10 +7,10 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import useCachedResources from "./hooks/useCachedResources";
-import theme from "./themes/default.theme";
+import useCachedResources from "@hooks/useCachedResources";
+import theme from "@themes/default.theme";
 import { RootStackParamList } from "@ctypes/navigation.type";
-import Screens from "./screens";
+import Screens from "@screens/index";
 import HomeScreen from "@screens/home.screen";
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
