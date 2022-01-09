@@ -1,3 +1,5 @@
+import React from "react";
+import { Dimensions, StyleSheet } from "react-native";
 import {
   IndexPath,
   Select,
@@ -6,10 +8,6 @@ import {
   Icon,
   Layout,
 } from "@ui-kitten/components";
-import { RenderFCProp, RenderProp } from "@ui-kitten/components/devsupport";
-import * as React from "react";
-import { ImageProps, SafeAreaView, StyleSheet } from "react-native";
-import { SvgProps } from "react-native-svg";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import { generateIndexPathArray } from "@utils/select.util";
@@ -17,75 +15,66 @@ import { generateIndexPathArray } from "@utils/select.util";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    width: Dimensions.get("window").width,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 16,
     justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
+  select: { flex: 1, flexShrink: 0, flexBasis: "100%" },
+  button: { margin: 16 },
 });
 
 const SearchIcon = (props: unknown) => <Icon {...props} name="search" />;
 
+const transmissions = ["Manuálna", "Automatická"];
+
+const getSelectDisplayValues = (values: unknown[], indexPaths: IndexPath[]) => {
+  const selectedValues = indexPaths.map((indexPath) => values[indexPath.row]);
+
+  return selectedValues.join(", ");
+};
+
 const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const [selectedIndex, setSelectedIndex] = React.useState(
-    generateIndexPathArray(3)
+    generateIndexPathArray(2)
   );
 
+  const [selectDisplayValue, setSelectDisplayValue] = React.useState(
+    getSelectDisplayValues(transmissions, selectedIndex)
+  );
+
+  const handleSelect = (index: IndexPath[]) => {
+    const displayValues = getSelectDisplayValues(transmissions, index);
+
+    setSelectedIndex(index);
+    setSelectDisplayValue(displayValues);
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Layout
-        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    <Layout style={styles.container}>
+      <Select
+        placeholder="Zvoľte aspoň 1 možnosť"
+        label="Typ prevodovky:"
+        multiSelect={true}
+        selectedIndex={selectedIndex}
+        onSelect={(index) => handleSelect(index as IndexPath[])}
+        value={selectDisplayValue}
+        style={styles.select}
       >
-        {/* <Button onPress={() => navigation.navigate("SearchResult")}>
-          Vyhladaj
-        </Button> */}
-        <Select
-          multiSelect={true}
-          selectedIndex={selectedIndex}
-          onSelect={(index) => setSelectedIndex(index as IndexPath[])}
-        >
-          <SelectItem title="Option 1" />
-          <SelectItem title="Option 2" />
-          <SelectItem title="Option 3" />
-        </Select>
-        <Button
-          accessoryRight={SearchIcon}
-          onPress={() => navigation.navigate("SearchResult")}
-        >
-          Vyhľadaj
-        </Button>
-      </Layout>
-    </SafeAreaView>
-    // <View style={styles.container}>
-    //   {/* <Text style={styles.title}>Tab One Test</Text>
-    //   <View
-    //     style={styles.separator}
-    //     lightColor="#eee"
-    //     darkColor="rgba(255,255,255,0.1)"
-    //   /> */}
-    //   <Select
-    //     multiSelect={true}
-    //     selectedIndex={selectedIndex}
-    //     onSelect={(index) => setSelectedIndex(index as IndexPath[])}
-    //     style={{
-    //       flex: 1,
-    //       width: "100%",
-    //     }}
-    //   >
-    //     <SelectItem title="Option 1" />
-    //     <SelectItem title="Option 2" />
-    //     <SelectItem title="Option 3" />
-    //   </Select>
-    //   <Button accessoryRight={SearchIcon}>Vyhľadaj</Button>
-    //   {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
-    // </View>
+        {transmissions.map((transmission) => (
+          <SelectItem title={transmission} key={transmission} />
+        ))}
+      </Select>
+
+      <Button
+        accessoryRight={SearchIcon}
+        onPress={() => navigation.navigate("SearchResult")}
+        style={styles.button}
+      >
+        Vyhľadaj
+      </Button>
+    </Layout>
   );
 };
 

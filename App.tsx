@@ -38,14 +38,16 @@ export default function App() {
                   name="Home"
                   component={HomeScreen}
                   options={{
-                    headerShown: false,
+                    // headerShown: false,
+                    headerTitle: "Požičovňa vozidiel",
+                    headerShadowVisible: false,
                   }}
                 />
                 <Screen
                   name="SearchResult"
                   component={Screens.SearchResult}
                   options={{
-                    title: "Vozidlá",
+                    headerTitle: "Dostupné vozidlá",
                     // headerTitleAlign: "center",
                     headerShadowVisible: false,
                   }}
@@ -54,14 +56,14 @@ export default function App() {
                   name="VehicleDetail"
                   component={Screens.VehicleDetail}
                   options={{
-                    title: "Vozidlo",
+                    headerTitle: "Detail vozidla",
                     // headerTitleAlign: "center",
                     headerShadowVisible: false,
                   }}
                 />
               </Navigator>
             </NavigationContainer>
-            <StatusBar />
+            <StatusBar style="dark" />
           </SafeAreaProvider>
         </ApplicationProvider>
       </>
