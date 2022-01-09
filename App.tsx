@@ -5,12 +5,13 @@ import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import useCachedResources from "./hooks/useCachedResources";
 import theme from "./themes/default.theme";
-import { RootStackParamList } from "./types/navigation.type";
+import { RootStackParamList } from "@ctypes/navigation.type";
 import Screens from "./screens";
+import HomeScreen from "@screens/home.screen";
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -35,13 +36,28 @@ export default function App() {
               <Navigator initialRouteName="Home">
                 <Screen
                   name="Home"
-                  component={Screens.home}
-                  options={{ title: "Car-sharing", headerTitleAlign: "center" }}
+                  component={HomeScreen}
+                  options={{
+                    headerShown: false,
+                  }}
                 />
                 <Screen
-                  name="Detail"
-                  component={Screens.detail}
-                  options={{ title: "Vozidlá", headerTitleAlign: "center" }}
+                  name="SearchResult"
+                  component={Screens.SearchResult}
+                  options={{
+                    title: "Vozidlá",
+                    // headerTitleAlign: "center",
+                    headerShadowVisible: false,
+                  }}
+                />
+                <Screen
+                  name="VehicleDetail"
+                  component={Screens.VehicleDetail}
+                  options={{
+                    title: "Vozidlo",
+                    // headerTitleAlign: "center",
+                    headerShadowVisible: false,
+                  }}
                 />
               </Navigator>
             </NavigationContainer>

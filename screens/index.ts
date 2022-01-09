@@ -1,7 +1,9 @@
-import home from "./home.screen";
-import detail from "./detail.screen";
+import Home from "./home.screen";
+import VehicleDetail from "./vehicle-detail.screen";
+import SearchResult from "./search-result.screen";
 
 export default {
-  home,
-  detail,
+  Home,
+  VehicleDetail,
+  SearchResult,
 };

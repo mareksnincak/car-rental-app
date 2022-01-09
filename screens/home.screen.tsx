@@ -14,7 +14,7 @@ import * as React from "react";
 import { ImageProps, SafeAreaView, StyleSheet } from "react-native";
 import { SvgProps } from "react-native-svg";
 
-import { RootStackScreenProps } from "../types/navigation.type";
+import { RootStackScreenProps } from "@ctypes/navigation.type";
 
 const styles = StyleSheet.create({
   container: {
@@ -46,8 +46,8 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
       <Layout
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
       >
-        <Button onPress={() => navigation.navigate("Detail")}>
-          OPEN DETAILS
+        <Button onPress={() => navigation.navigate("SearchResult")}>
+          Vyhladaj
         </Button>
       </Layout>
     </SafeAreaView>
