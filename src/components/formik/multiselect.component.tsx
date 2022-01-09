@@ -1,7 +1,7 @@
 import React from "react";
 import { useField } from "formik";
-
 import { IndexPath, Select, SelectProps } from "@ui-kitten/components";
+
 import { generateIndexPathArray } from "@utils/select.util";
 
 const getSelectedValues = (values: unknown[], indexPaths: IndexPath[]) => {
