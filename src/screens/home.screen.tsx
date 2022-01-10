@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, LayoutAnimation, StyleSheet } from "react-native";
 import { SelectItem, Button, Icon, Layout } from "@ui-kitten/components";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -26,6 +26,13 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: "center",
   },
+  nestedContainer: {
+    flex: 1,
+    flexShrink: 0,
+    flexBasis: "100%",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
   fullWidth: { flex: 1, flexShrink: 0, flexBasis: "100%" },
   button: { margin: 16 },
   inputGroup: {
@@ -42,9 +49,12 @@ const styles = StyleSheet.create({
 });
 
 const SearchIcon = (props: unknown) => <Icon {...props} name="search" />;
+const ExpandIcon = (props: unknown) => <Icon {...props} name="chevron-down" />;
+const CollapseIcon = (props: unknown) => <Icon {...props} name="chevron-up" />;
 
 const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
-  const [date, setDate] = React.useState(new Date());
+  const [expanded, setExpanded] = React.useState(false);
+
   const startOfDay = dayjs().startOf("day").toDate();
 
   return (
@@ -136,87 +146,108 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
             </FormikSelect>
           </Layout>
 
-          <FormikInput
-            name="query"
-            label="Model"
-            placeholder="Zadajte frázu (napr. Škoda Fábia)"
-            style={styles.fullWidth}
-          />
-
-          <FormikMultiselect
-            name="bodyStyle"
-            label="Karoséria"
-            placeholder="Zvoľte typ karosérie"
-            values={[...BODY_STYLES]}
-            style={styles.fullWidth}
-            allSelected={true}
+          <Button
+            appearance="ghost"
+            accessoryRight={expanded ? CollapseIcon : ExpandIcon}
+            onPress={() => {
+              LayoutAnimation.configureNext(
+                LayoutAnimation.Presets.easeInEaseOut
+              );
+              setExpanded((isExpanded) => !isExpanded);
+            }}
           >
-            {BODY_STYLES.map((bodyStyle) => (
-              <SelectItem title={bodyStyle} key={bodyStyle} />
-            ))}
-          </FormikMultiselect>
+            Rozšírené vyhľadávanie
+          </Button>
 
-          <FormikMultiselect
-            name="transmission"
-            label="Prevodovka"
-            placeholder="Zvoľte typ prevodovky"
-            values={[...TRANSMISSION_TYPES]}
-            style={styles.fullWidth}
-            allSelected={true}
-          >
-            {TRANSMISSION_TYPES.map((transmission) => (
-              <SelectItem title={transmission} key={transmission} />
-            ))}
-          </FormikMultiselect>
+          {expanded && (
+            <Layout
+              style={{
+                ...styles.nestedContainer,
+              }}
+            >
+              <FormikInput
+                name="query"
+                label="Model"
+                placeholder="Zadajte frázu (napr. Škoda Fábia)"
+                style={styles.fullWidth}
+              />
 
-          <FormikMultiselect
-            name="fuel"
-            label="Palivo"
-            placeholder="Zvoľte typ paliva"
-            values={[...FUEL_TYPES]}
-            style={styles.fullWidth}
-            allSelected={true}
-          >
-            {FUEL_TYPES.map((fuel) => (
-              <SelectItem title={fuel} key={fuel} />
-            ))}
-          </FormikMultiselect>
+              <FormikMultiselect
+                name="bodyStyle"
+                label="Karoséria"
+                placeholder="Zvoľte typ karosérie"
+                values={[...BODY_STYLES]}
+                style={styles.fullWidth}
+                allSelected={true}
+              >
+                {BODY_STYLES.map((bodyStyle) => (
+                  <SelectItem title={bodyStyle} key={bodyStyle} />
+                ))}
+              </FormikMultiselect>
 
-          <Layout style={styles.inputGroup}>
-            <FormikInput
-              name="performanceMin"
-              label="Výkon od (kW)"
-              placeholder="Výkon od (kW)"
-              style={styles.inputGroupItem}
-              keyboardType="numeric"
-            />
+              <FormikMultiselect
+                name="transmission"
+                label="Prevodovka"
+                placeholder="Zvoľte typ prevodovky"
+                values={[...TRANSMISSION_TYPES]}
+                style={styles.fullWidth}
+                allSelected={true}
+              >
+                {TRANSMISSION_TYPES.map((transmission) => (
+                  <SelectItem title={transmission} key={transmission} />
+                ))}
+              </FormikMultiselect>
 
-            <FormikInput
-              name="performanceMax"
-              label="Výkon do (kW)"
-              placeholder="Výkon do (kW)"
-              style={{ flex: 1, marginHorizontal: 8 }}
-              keyboardType="numeric"
-            />
-          </Layout>
+              <FormikMultiselect
+                name="fuel"
+                label="Palivo"
+                placeholder="Zvoľte typ paliva"
+                values={[...FUEL_TYPES]}
+                style={styles.fullWidth}
+                allSelected={true}
+              >
+                {FUEL_TYPES.map((fuel) => (
+                  <SelectItem title={fuel} key={fuel} />
+                ))}
+              </FormikMultiselect>
 
-          <Layout style={styles.inputGroup}>
-            <FormikInput
-              name="seatsMin"
-              label="Počet miest od"
-              placeholder="Počet miest od"
-              style={styles.inputGroupItem}
-              keyboardType="numeric"
-            />
+              <Layout style={styles.inputGroup}>
+                <FormikInput
+                  name="performanceMin"
+                  label="Výkon od (kW)"
+                  placeholder="Výkon od (kW)"
+                  style={styles.inputGroupItem}
+                  keyboardType="numeric"
+                />
 
-            <FormikInput
-              name="seatsMax"
-              label="Počet miest do"
-              placeholder="Počet miest do"
-              style={{ flex: 1, marginHorizontal: 8 }}
-              keyboardType="numeric"
-            />
-          </Layout>
+                <FormikInput
+                  name="performanceMax"
+                  label="Výkon do (kW)"
+                  placeholder="Výkon do (kW)"
+                  style={{ flex: 1, marginHorizontal: 8 }}
+                  keyboardType="numeric"
+                />
+              </Layout>
+
+              <Layout style={styles.inputGroup}>
+                <FormikInput
+                  name="seatsMin"
+                  label="Počet miest od"
+                  placeholder="Počet miest od"
+                  style={styles.inputGroupItem}
+                  keyboardType="numeric"
+                />
+
+                <FormikInput
+                  name="seatsMax"
+                  label="Počet miest do"
+                  placeholder="Počet miest do"
+                  style={{ flex: 1, marginHorizontal: 8 }}
+                  keyboardType="numeric"
+                />
+              </Layout>
+            </Layout>
+          )}
 
           <Button
             accessoryRight={SearchIcon}

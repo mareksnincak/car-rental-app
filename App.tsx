@@ -5,6 +5,7 @@ import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { NavigationContainer } from "@react-navigation/native";
+import { Platform, UIManager } from "react-native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import useCachedResources from "@hooks/useCachedResources";
@@ -12,8 +13,15 @@ import theme from "@themes/default.theme";
 import { RootStackParamList } from "@ctypes/navigation.type";
 import Screens from "@screens/index";
 import HomeScreen from "@screens/home.screen";
+import { EPlatformOs } from "@constants/common.constants";
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
+
+if (Platform.OS === EPlatformOs.android) {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
