@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   fullWidth: { flex: 1, flexShrink: 0, flexBasis: "100%" },
-  button: { margin: 16 },
   inputGroup: {
     flex: 1,
     flexShrink: 0,
@@ -45,6 +44,9 @@ const styles = StyleSheet.create({
   inputGroupItem: {
     flex: 1,
     marginHorizontal: 8,
+  },
+  padded: {
+    marginBottom: 8,
   },
 });
 
@@ -108,7 +110,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
     >
       {({ handleSubmit }) => (
         <Layout style={styles.container}>
-          <Layout style={styles.inputGroup}>
+          <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
             <FormikDatepicker
               name="dateFrom"
               label="Dátum vyzdvihnutia"
@@ -127,7 +129,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
             </FormikSelect>
           </Layout>
 
-          <Layout style={styles.inputGroup}>
+          <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
             <FormikDatepicker
               name="dateTo"
               label="Dátum vrátenia"
@@ -155,6 +157,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               );
               setExpanded((isExpanded) => !isExpanded);
             }}
+            style={{ ...styles.fullWidth, ...(!expanded && styles.padded) }}
           >
             Rozšírené vyhľadávanie
           </Button>
@@ -163,13 +166,14 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
             <Layout
               style={{
                 ...styles.nestedContainer,
+                ...styles.padded,
               }}
             >
               <FormikInput
                 name="query"
                 label="Model"
                 placeholder="Zadajte frázu (napr. Škoda Fábia)"
-                style={styles.fullWidth}
+                style={{ ...styles.fullWidth, ...styles.padded }}
               />
 
               <FormikMultiselect
@@ -177,7 +181,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label="Karoséria"
                 placeholder="Zvoľte typ karosérie"
                 values={[...BODY_STYLES]}
-                style={styles.fullWidth}
+                style={{ ...styles.fullWidth, ...styles.padded }}
                 allSelected={true}
               >
                 {BODY_STYLES.map((bodyStyle) => (
@@ -190,7 +194,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label="Prevodovka"
                 placeholder="Zvoľte typ prevodovky"
                 values={[...TRANSMISSION_TYPES]}
-                style={styles.fullWidth}
+                style={{ ...styles.fullWidth, ...styles.padded }}
                 allSelected={true}
               >
                 {TRANSMISSION_TYPES.map((transmission) => (
@@ -203,7 +207,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label="Palivo"
                 placeholder="Zvoľte typ paliva"
                 values={[...FUEL_TYPES]}
-                style={styles.fullWidth}
+                style={{ ...styles.fullWidth, ...styles.padded }}
                 allSelected={true}
               >
                 {FUEL_TYPES.map((fuel) => (
@@ -211,7 +215,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 ))}
               </FormikMultiselect>
 
-              <Layout style={styles.inputGroup}>
+              <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
                 <FormikInput
                   name="performanceMin"
                   label="Výkon od (kW)"
@@ -224,12 +228,12 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                   name="performanceMax"
                   label="Výkon do (kW)"
                   placeholder="Výkon do (kW)"
-                  style={{ flex: 1, marginHorizontal: 8 }}
+                  style={styles.inputGroupItem}
                   keyboardType="numeric"
                 />
               </Layout>
 
-              <Layout style={styles.inputGroup}>
+              <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
                 <FormikInput
                   name="seatsMin"
                   label="Počet miest od"
@@ -242,7 +246,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                   name="seatsMax"
                   label="Počet miest do"
                   placeholder="Počet miest do"
-                  style={{ flex: 1, marginHorizontal: 8 }}
+                  style={styles.inputGroupItem}
                   keyboardType="numeric"
                 />
               </Layout>
@@ -251,8 +255,8 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
 
           <Button
             accessoryRight={SearchIcon}
+            style={styles.fullWidth}
             onPress={handleSubmit as (event: unknown) => void}
-            style={styles.button}
           >
             Vyhľadaj
           </Button>
