@@ -7,6 +7,7 @@ module.exports = function(api) {
         'module-resolver',
         {
           alias: {
+            "@api": "./src/api",
             "@assets": "./src/assets",
             "@components": "./src/components",
             "@constants": "./src/constants",
@@ -18,6 +19,15 @@ module.exports = function(api) {
           },
         },
       ],
+      [
+        "module:react-native-dotenv",
+        {
+          "moduleName": "@env",
+          "path": ".env",
+          "safe": true,
+          "allowUndefined": false
+        }
+      ]
     ],
   };
 };

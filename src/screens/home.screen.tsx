@@ -58,35 +58,43 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const startOfDay = dayjs().startOf("day").toDate();
+  const defaultTime = "12:00";
 
   return (
     <Formik
       initialValues={{
-        dateFrom: startOfDay,
-        dateTo: startOfDay,
-        timeFrom: TIMES[0],
-        timeTo: TIMES[0],
+        fromDate: dayjs().add(1, "day").startOf("day").toDate(),
+        toDate: dayjs().add(8, "days").startOf("day").toDate(),
+        fromTime: defaultTime,
+        toTime: defaultTime,
         query: null,
         bodyStyle: BODY_STYLES,
         transmission: TRANSMISSION_TYPES,
         fuel: FUEL_TYPES,
-        performanceMin: null,
-        performanceMax: null,
+        powerMin: null,
+        powerMax: null,
         seatsMin: null,
         seatsMax: null,
       }}
       onSubmit={(values) => {
-        console.log(values);
-        navigation.navigate("SearchResult");
+        const { fromDate, fromTime, toDate, toTime, ...otherValues } = values;
+
+        navigation.navigate("SearchResult", {
+          searchParams: {
+            ...otherValues,
+            fromDate,
+            toDate,
+          },
+        });
       }}
       validateOnChange={false}
       validationSchema={Yup.object({
-        dateFrom: Yup.date().min(startOfDay).required(),
-        timeFrom: Yup.mixed()
+        fromDate: Yup.date().min(startOfDay).required(),
+        fromTime: Yup.mixed()
           .oneOf([...TIMES])
           .required(),
-        dateTo: Yup.date().min(Yup.ref("dateFrom")).required(),
-        timeTo: Yup.mixed()
+        toDate: Yup.date().min(Yup.ref("fromDate")).required(),
+        toTime: Yup.mixed()
           .oneOf([...TIMES])
           .required(),
         query: Yup.string().nullable(),
@@ -102,9 +110,9 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           .of(Yup.mixed().oneOf([...FUEL_TYPES]))
           .min(1)
           .required(),
-        performanceMin: Yup.number().min(0).nullable(),
-        performanceMax: Yup.number().min(Yup.ref("performanceMin")).nullable(),
-        seatsMin: Yup.number().min(0).nullable(),
+        powerMin: Yup.number().min(0).nullable(),
+        powerMax: Yup.number().min(Yup.ref("powerMin")).nullable(),
+        seatsMin: Yup.number().min(1).nullable(),
         seatsMax: Yup.number().min(Yup.ref("seatsMin")).nullable(),
       })}
     >
@@ -112,13 +120,13 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         <Layout style={styles.container}>
           <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
             <FormikDatepicker
-              name="dateFrom"
+              name="fromDate"
               label="Dátum vyzdvihnutia"
               style={styles.inputGroupItem}
             />
 
             <FormikSelect
-              name="timeFrom"
+              name="fromTime"
               label="Čas vyzdvihnutia"
               values={[...TIMES]}
               style={styles.inputGroupItem}
@@ -131,13 +139,13 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
 
           <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
             <FormikDatepicker
-              name="dateTo"
+              name="toDate"
               label="Dátum vrátenia"
               style={styles.inputGroupItem}
             />
 
             <FormikSelect
-              name="timeTo"
+              name="toTime"
               label="Čas vrátenia"
               values={[...TIMES]}
               style={styles.inputGroupItem}
@@ -217,7 +225,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
 
               <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
                 <FormikInput
-                  name="performanceMin"
+                  name="powerMin"
                   label="Výkon od (kW)"
                   placeholder="Výkon od (kW)"
                   style={styles.inputGroupItem}
@@ -225,7 +233,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 />
 
                 <FormikInput
-                  name="performanceMax"
+                  name="powerMax"
                   label="Výkon do (kW)"
                   placeholder="Výkon do (kW)"
                   style={styles.inputGroupItem}
