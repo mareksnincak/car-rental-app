@@ -1,9 +1,78 @@
 import React, { useEffect, useState } from "react";
-import { Text, Layout } from "@ui-kitten/components";
+import {
+  Dimensions,
+  ListRenderItemInfo,
+  StyleSheet,
+  Image,
+  ViewProps,
+} from "react-native";
+import {
+  Text,
+  Layout,
+  Button,
+  List,
+  Card,
+  ListItem,
+  useTheme,
+} from "@ui-kitten/components";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
-import { TSearchParams, TVehicle } from "@ctypes/vehicle.type";
+import { TVehicle } from "@ctypes/vehicle.type";
 import { VehicleApi } from "@api/vehicle.api";
+import Loader from "@components/loader.component";
+
+/**
+ * TODO:
+ *  - concat date and time
+ *  - extract vehicle options to component
+ *  - add driver age
+ *  - add translations / key mapping
+ *  - add images to backend
+ *  - add pagination
+ *  - handle exceptions
+ */
+const MOCKED_IMAGE_URL =
+  "https://cdn2.rcstatic.com/images/car_images/web/toyota/aygo_lrg.jpg";
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    width: Dimensions.get("window").width,
+    justifyContent: "center",
+  },
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginTop: -80,
+    padding: 16,
+  },
+  footerContainer: { flexDirection: "row", alignItems: "center" },
+  footerPriceContainer: {
+    alignItems: "center",
+    width: 100,
+    marginRight: 32,
+  },
+  cardContainer: { flexDirection: "row", flexWrap: "wrap" },
+  bottomPadded: {
+    paddingBottom: 16,
+  },
+  bottomPaddedCompact: {
+    paddingBottom: 4,
+  },
+  fullWidth: { flex: 1, flexShrink: 0, flexBasis: "100%" },
+  listItem: {
+    flexDirection: "row",
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  itemImage: {
+    width: 100,
+    height: 100,
+    marginRight: 32,
+  },
+});
 
 const SearchResultScreen = ({
   navigation,
@@ -11,6 +80,7 @@ const SearchResultScreen = ({
 }: RootStackScreenProps<"SearchResult">) => {
   const { searchParams } = route.params;
 
+  const theme = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [vehicles, setVehicles] = useState<TVehicle[]>([]);
 
@@ -29,18 +99,91 @@ const SearchResultScreen = ({
   }, []);
 
   if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!vehicles.length) {
     return (
-      <Layout style={{ flex: 1 }}>
-        <Text>Loading...</Text>
+      <Layout style={styles.root}>
+        <Layout style={styles.container}>
+          <Text style={styles.bottomPadded}>Nenašli sa žiadne vozidlá</Text>
+          <Button style={styles.fullWidth} onPress={() => navigation.goBack()}>
+            Zmeniť kritéria vyhľadávania
+          </Button>
+        </Layout>
       </Layout>
     );
   }
 
+  const Header = (vehicle: TVehicle, props?: ViewProps) => (
+    <Layout {...props}>
+      <Text category="h6" style={styles.bold}>
+        {vehicle.make} {vehicle.model} {vehicle.year}
+      </Text>
+    </Layout>
+  );
+
+  const Footer = (vehicle: TVehicle, props?: ViewProps) => {
+    const price = vehicle.price?.total;
+
+    return (
+      <Layout style={[props?.style, styles.footerContainer]}>
+        {price && (
+          <Layout style={styles.footerPriceContainer}>
+            <Text style={styles.bold}>{price}€</Text>
+          </Layout>
+        )}
+        <Button size="small" style={{ flex: 2 }}>
+          Zobraziť ponuku
+        </Button>
+      </Layout>
+    );
+  };
+
+  const renderItem = ({ item: vehicle }: ListRenderItemInfo<TVehicle>) => {
+    return (
+      <ListItem style={styles.fullWidth}>
+        <Card
+          style={styles.fullWidth}
+          header={(viewProps) => Header(vehicle, viewProps)}
+          footer={(viewProps) => Footer(vehicle, viewProps)}
+        >
+          <Layout style={[styles.fullWidth, styles.cardContainer]}>
+            <Image
+              style={[
+                styles.itemImage,
+                {
+                  backgroundColor: theme["color-basic-transparent-default"],
+                },
+              ]}
+              source={{
+                uri: MOCKED_IMAGE_URL,
+              }}
+            />
+            <Layout>
+              <Text style={styles.bottomPaddedCompact}>
+                Palivo: {vehicle.fuel}
+              </Text>
+              <Text style={styles.bottomPaddedCompact}>
+                Prevodovka: {vehicle.transmission}
+              </Text>
+              <Text style={styles.bottomPaddedCompact}>
+                Počet miest: {vehicle.seats}
+              </Text>
+              <Text style={styles.bottomPaddedCompact}>
+                Nájazd: {vehicle.mileage} km
+              </Text>
+              <Text>Výkon: {Number(vehicle.power).toFixed(0)} k</Text>
+            </Layout>
+          </Layout>
+        </Card>
+      </ListItem>
+    );
+  };
+
   return (
-    <Layout style={{ flex: 1 }}>
-      {vehicles.map((vehicle) => (
-        <Text>{vehicle.model}</Text>
-      ))}
+    <Layout style={styles.root}>
+      <List data={vehicles} renderItem={renderItem} />
     </Layout>
   );
 };
