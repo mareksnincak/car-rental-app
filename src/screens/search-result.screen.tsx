@@ -20,6 +20,7 @@ import { RootStackScreenProps } from "@ctypes/navigation.type";
 import { TVehicle } from "@ctypes/vehicle.type";
 import { VehicleApi } from "@api/vehicle.api";
 import Loader from "@components/loader.component";
+import Attribute from "@components/attribute.component";
 
 const MOCKED_IMAGE_URL =
   "https://cdn2.rcstatic.com/images/car_images/web/toyota/aygo_lrg.jpg";
@@ -61,6 +62,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginRight: 32,
+  },
+  detailButton: {
+    flex: 2,
   },
 });
 
@@ -123,7 +127,7 @@ const SearchResultScreen = ({
             <Text style={styles.bold}>{price}€</Text>
           </Layout>
         )}
-        <Button size="small" style={{ flex: 2 }}>
+        <Button size="small" style={styles.detailButton}>
           Zobraziť ponuku
         </Button>
       </Layout>
@@ -151,19 +155,14 @@ const SearchResultScreen = ({
               }}
             />
             <Layout>
-              <Text style={styles.bottomPaddedCompact}>
-                Palivo: {vehicle.fuel}
-              </Text>
-              <Text style={styles.bottomPaddedCompact}>
-                Prevodovka: {vehicle.transmission}
-              </Text>
-              <Text style={styles.bottomPaddedCompact}>
-                Počet miest: {vehicle.seats}
-              </Text>
-              <Text style={styles.bottomPaddedCompact}>
-                Nájazd: {vehicle.mileage} km
-              </Text>
-              <Text>Výkon: {Number(vehicle.power).toFixed(0)} k</Text>
+              <Attribute label="Palivo" value={vehicle.fuel} />
+              <Attribute label="Prevodovka" value={vehicle.transmission} />
+              <Attribute label="Počet miest" value={vehicle.seats} />
+              <Attribute label="Nájazd" value={`${vehicle.mileage} km`} />
+              <Attribute
+                label="Výkon"
+                value={`${Number(vehicle.power).toFixed(0)} k`}
+              />
             </Layout>
           </Layout>
         </Card>

@@ -149,7 +149,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
     >
       {({ handleSubmit }) => (
         <Layout style={styles.container}>
-          <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
+          <Layout style={[styles.inputGroup, styles.padded]}>
             <FormikDatepicker
               name="fromDate"
               label="Dátum vyzdvihnutia"
@@ -168,7 +168,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
             </FormikSelect>
           </Layout>
 
-          <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
+          <Layout style={[styles.inputGroup, styles.padded]}>
             <FormikDatepicker
               name="toDate"
               label="Dátum vrátenia"
@@ -202,17 +202,12 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           </Button>
 
           {expanded && (
-            <Layout
-              style={{
-                ...styles.nestedContainer,
-                ...styles.padded,
-              }}
-            >
+            <Layout style={[styles.nestedContainer, styles.padded]}>
               <FormikInput
                 name="query"
                 label="Model"
                 placeholder="Zadajte frázu (napr. Škoda Fábia)"
-                style={{ ...styles.fullWidth, ...styles.padded }}
+                style={[styles.fullWidth, styles.padded]}
               />
 
               <FormikMultiselect
@@ -220,7 +215,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label="Karoséria"
                 placeholder="Zvoľte typ karosérie"
                 values={[...BODY_STYLES]}
-                style={{ ...styles.fullWidth, ...styles.padded }}
+                style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {BODY_STYLES.map((bodyStyle) => (
@@ -233,7 +228,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label="Prevodovka"
                 placeholder="Zvoľte typ prevodovky"
                 values={[...TRANSMISSION_TYPES]}
-                style={{ ...styles.fullWidth, ...styles.padded }}
+                style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {TRANSMISSION_TYPES.map((transmission) => (
@@ -246,7 +241,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label="Palivo"
                 placeholder="Zvoľte typ paliva"
                 values={[...FUEL_TYPES]}
-                style={{ ...styles.fullWidth, ...styles.padded }}
+                style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {FUEL_TYPES.map((fuel) => (
@@ -254,7 +249,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 ))}
               </FormikMultiselect>
 
-              <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
+              <Layout style={[styles.inputGroup, styles.padded]}>
                 <FormikInput
                   name="powerMin"
                   label="Výkon od (kW)"
@@ -272,7 +267,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 />
               </Layout>
 
-              <Layout style={{ ...styles.inputGroup, ...styles.padded }}>
+              <Layout style={[styles.inputGroup, styles.padded]}>
                 <FormikInput
                   name="seatsMin"
                   label="Počet miest od"
