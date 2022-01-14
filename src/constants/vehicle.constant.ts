@@ -1,3 +1,5 @@
+import { range } from "@utils/number.util";
+
 export enum ESortBy {
   price = "price",
   power = "power",
@@ -47,3 +49,5 @@ export const TIMES = [
   "20:00",
   "21:00",
 ] as const;
+
+export const DRIVER_AGES = [...range(18, 99, 1)] as const;

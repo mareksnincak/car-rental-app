@@ -20,7 +20,6 @@ const search = async (
   const params = {
     ...searchParams,
     ...pagination,
-    driverAge: 24,
   };
 
   const response: TPaginatedAxiosResponse<TVehicle[]> = await axiosInstance.get(

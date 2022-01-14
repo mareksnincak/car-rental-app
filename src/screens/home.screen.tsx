@@ -11,6 +11,7 @@ import FormikMultiselect from "@components/formik/multiselect.component";
 import FormikSelect from "@components/formik/select.component";
 import {
   BODY_STYLES,
+  DRIVER_AGES,
   FUEL_TYPES,
   TIMES,
   TRANSMISSION_TYPES,
@@ -21,7 +22,6 @@ import { combineDateTime } from "@utils/date.util";
 /**
  * TODO:
  *  - take timezone into account for date concatination
- *  - extract vehicle options to component
  *  - add driver age
  *  - add translations / key mapping
  *  - add images to backend
@@ -79,6 +79,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         toDate: dayjs().add(8, "days").startOf("day").toDate(),
         fromTime: defaultTime,
         toTime: defaultTime,
+        driverAge: DRIVER_AGES[0],
         query: null,
         bodyStyle: BODY_STYLES,
         transmission: TRANSMISSION_TYPES,
@@ -128,6 +129,10 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
             const to = combineDateTime(toDate, toTime);
             return to > from;
           }),
+        driverAge: Yup.number()
+          .min(Number(DRIVER_AGES[0]))
+          .max(Number(DRIVER_AGES[DRIVER_AGES.length - 1]))
+          .required(),
         query: Yup.string().nullable(),
         bodyStyle: Yup.array()
           .of(Yup.mixed().oneOf([...BODY_STYLES]))
@@ -186,6 +191,17 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               ))}
             </FormikSelect>
           </Layout>
+
+          <FormikSelect
+            name="driverAge"
+            label="Vek vodiča"
+            values={[...DRIVER_AGES]}
+            style={[styles.fullWidth, styles.padded]}
+          >
+            {DRIVER_AGES.map((age) => (
+              <SelectItem title={age} key={age} />
+            ))}
+          </FormikSelect>
 
           <Button
             appearance="ghost"

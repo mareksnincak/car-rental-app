@@ -10,7 +10,7 @@ const FormikSelect = ({
   ...selectProps
 }: SelectProps & {
   name: string;
-  values: string[];
+  values: (string | number)[];
   allSelected?: boolean;
 }) => {
   const [field, meta, helpers] = useField(name);
