@@ -16,6 +16,18 @@ import {
   TRANSMISSION_TYPES,
 } from "@constants/vehicle.constant";
 import FormikDatepicker from "@components/formik/datepicker.component";
+import { combineDateTime } from "@utils/date.util";
+
+/**
+ * TODO:
+ *  - take timezone into account for date concatination
+ *  - extract vehicle options to component
+ *  - add driver age
+ *  - add translations / key mapping
+ *  - add images to backend
+ *  - add pagination
+ *  - handle exceptions
+ */
 
 const styles = StyleSheet.create({
   container: {
@@ -82,8 +94,8 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         navigation.navigate("SearchResult", {
           searchParams: {
             ...otherValues,
-            fromDate,
-            toDate,
+            fromDate: combineDateTime(fromDate, fromTime).toISOString(),
+            toDate: combineDateTime(toDate, toTime).toISOString(),
           },
         });
       }}
@@ -92,11 +104,30 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         fromDate: Yup.date().min(startOfDay).required(),
         fromTime: Yup.mixed()
           .oneOf([...TIMES])
-          .required(),
+          .required()
+          .test(function () {
+            const { fromDate, fromTime } = this.parent;
+            if (!(fromDate && fromTime)) {
+              return false;
+            }
+
+            const from = combineDateTime(fromDate, fromTime);
+            return from > new Date();
+          }),
         toDate: Yup.date().min(Yup.ref("fromDate")).required(),
         toTime: Yup.mixed()
           .oneOf([...TIMES])
-          .required(),
+          .required()
+          .test(function () {
+            const { fromDate, fromTime, toDate, toTime } = this.parent;
+            if (!(fromDate && fromTime && toDate && toTime)) {
+              return false;
+            }
+
+            const from = combineDateTime(fromDate, fromTime);
+            const to = combineDateTime(toDate, toTime);
+            return to > from;
+          }),
         query: Yup.string().nullable(),
         bodyStyle: Yup.array()
           .of(Yup.mixed().oneOf([...BODY_STYLES]))

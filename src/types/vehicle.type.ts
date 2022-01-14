@@ -21,8 +21,8 @@ export type TVehicle = {
 
 export type TSearchParams = {
   query?: string | null;
-  fromDate: Date;
-  toDate: Date;
+  fromDate: Date | string;
+  toDate: Date | string;
   seatsMin?: number | null;
   seatsMax?: number | null;
   powerMin?: number | null;

@@ -21,16 +21,6 @@ import { TVehicle } from "@ctypes/vehicle.type";
 import { VehicleApi } from "@api/vehicle.api";
 import Loader from "@components/loader.component";
 
-/**
- * TODO:
- *  - concat date and time
- *  - extract vehicle options to component
- *  - add driver age
- *  - add translations / key mapping
- *  - add images to backend
- *  - add pagination
- *  - handle exceptions
- */
 const MOCKED_IMAGE_URL =
   "https://cdn2.rcstatic.com/images/car_images/web/toyota/aygo_lrg.jpg";
 
