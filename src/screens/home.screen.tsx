@@ -22,11 +22,9 @@ import { combineDateTime } from "@utils/date.util";
 /**
  * TODO:
  *  - take timezone into account for date concatination
- *  - add driver age
  *  - add translations / key mapping
- *  - add images to backend
- *  - add pagination
  *  - handle exceptions
+ *  - add images to backend
  */
 
 const styles = StyleSheet.create({

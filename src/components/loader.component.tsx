@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Layout, Spinner } from "@ui-kitten/components";
+import { Layout, LayoutProps, Spinner } from "@ui-kitten/components";
 
 const styles = StyleSheet.create({
   container: {
@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Loader = () => {
+const Loader = ({ layoutProps }: { layoutProps?: LayoutProps }) => {
   return (
-    <Layout style={styles.container}>
+    <Layout {...layoutProps} style={[styles.container, layoutProps?.style]}>
       <Spinner />
     </Layout>
   );
