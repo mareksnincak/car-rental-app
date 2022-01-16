@@ -1,28 +1,29 @@
 import React from "react";
-import {
-  StyleSheet,
-  Image,
-  ViewProps,
-  ViewStyle,
-  StyleProp,
-} from "react-native";
+import { StyleSheet, Image, ViewStyle, StyleProp } from "react-native";
 import { Text, Layout, Button, Card, ListItem } from "@ui-kitten/components";
 
 import { TVehicle } from "@ctypes/vehicle.type";
 import Attribute from "@components/attribute.component";
 
-const MOCKED_IMAGE_URL =
-  "https://cdn2.rcstatic.com/images/car_images/web/toyota/aygo_lrg.jpg";
-
 const styles = StyleSheet.create({
-  footerContainer: { flexDirection: "row", alignItems: "center" },
+  footerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "nowrap",
+  },
   footerPriceContainer: {
     alignItems: "center",
-    width: 100,
-    marginRight: 32,
-    marginVertical: -16,
+    flex: 0,
+    flexBasis: 150,
+    flexShrink: 1,
+    margin: -16,
+    marginRight: 16,
   },
-  cardContainer: { flexDirection: "row", flexWrap: "wrap" },
+  cardContainer: {
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    alignItems: "center",
+  },
   fullWidth: { flex: 1, flexShrink: 0, flexBasis: "100%" },
   listItem: {
     flexDirection: "row",
@@ -31,12 +32,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   itemImage: {
-    width: 100,
-    height: 100,
-    marginRight: 32,
+    flex: 0,
+    flexBasis: 150,
+    flexShrink: 1,
+    aspectRatio: 1.5,
+    marginRight: 16,
+    marginLeft: -16,
   },
   detailButton: {
-    flex: 2,
+    flex: 1,
   },
 });
 
@@ -101,7 +105,7 @@ const SearchResultItem = ({ vehicle }: { vehicle: TVehicle }) => {
           <Image
             style={[styles.itemImage]}
             source={{
-              uri: MOCKED_IMAGE_URL,
+              uri: vehicle.imageUrl,
             }}
           />
           <Layout>

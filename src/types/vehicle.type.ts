@@ -13,6 +13,7 @@ export type TVehicle = {
   power: number;
   seats: number;
   doors: number;
+  imageUrl: string;
   price: {
     total: number | null;
     deposit: number | null;

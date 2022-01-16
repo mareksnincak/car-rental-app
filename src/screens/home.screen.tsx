@@ -24,7 +24,6 @@ import { combineDateTime } from "@utils/date.util";
  *  - take timezone into account for date concatination
  *  - add translations / key mapping
  *  - handle exceptions
- *  - add images to backend
  */
 
 const styles = StyleSheet.create({
