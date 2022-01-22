@@ -4,6 +4,7 @@ import { Text, Layout, Button, Card, ListItem } from "@ui-kitten/components";
 
 import { TVehicle } from "@ctypes/vehicle.type";
 import Attribute from "@components/attribute.component";
+import I18n from "i18n-js";
 
 const styles = StyleSheet.create({
   footerContainer: {
@@ -77,7 +78,7 @@ const Footer = React.memo(
           </Layout>
         )}
         <Button size="small" style={styles.detailButton}>
-          Zobraziť ponuku
+          {I18n.t("components.searchResultItem.showDetail")}
         </Button>
       </Layout>
     );
@@ -109,12 +110,24 @@ const SearchResultItem = ({ vehicle }: { vehicle: TVehicle }) => {
             }}
           />
           <Layout>
-            <Attribute label="Palivo" value={vehicle.fuel} />
-            <Attribute label="Prevodovka" value={vehicle.transmission} />
-            <Attribute label="Počet miest" value={vehicle.seats} />
-            <Attribute label="Nájazd" value={`${vehicle.mileage} km`} />
             <Attribute
-              label="Výkon"
+              label={I18n.t("vehicle.fuel.label")}
+              value={vehicle.fuel}
+            />
+            <Attribute
+              label={I18n.t("vehicle.transmission.label")}
+              value={vehicle.transmission}
+            />
+            <Attribute
+              label={I18n.t("vehicle.seats.label")}
+              value={vehicle.seats}
+            />
+            <Attribute
+              label={I18n.t("vehicle.mileage.label")}
+              value={`${vehicle.mileage} km`}
+            />
+            <Attribute
+              label={I18n.t("vehicle.power.label")}
               value={`${Number(vehicle.power).toFixed(0)} k`}
             />
           </Layout>

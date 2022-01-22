@@ -21,10 +21,10 @@ export const BODY_STYLES = [
   "sedan",
   "hatchback",
   "liftback",
-  "kombi",
-  "kupé",
-  "pick-up",
-  "dodávka",
+  "combi",
+  "coupe",
+  "pickUp",
+  "van",
 ] as const;
 
 export const TRANSMISSION_TYPES = Object.keys(ETransmission);

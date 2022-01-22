@@ -18,12 +18,14 @@ import {
 } from "@constants/vehicle.constant";
 import FormikDatepicker from "@components/formik/datepicker.component";
 import { combineDateTime } from "@utils/date.util";
+import I18n from "i18n-js";
 
 /**
  * TODO:
+ *  - fix search
+ *  - add detail
+ *  - add booking
  *  - take timezone into account for date concatination
- *  - add translations / key mapping
- *  - handle exceptions
  */
 
 const styles = StyleSheet.create({
@@ -154,13 +156,13 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           <Layout style={[styles.inputGroup, styles.padded]}>
             <FormikDatepicker
               name="fromDate"
-              label="Dátum vyzdvihnutia"
+              label={I18n.t("screens.home.form.fromDate")}
               style={styles.inputGroupItem}
             />
 
             <FormikSelect
               name="fromTime"
-              label="Čas vyzdvihnutia"
+              label={I18n.t("screens.home.form.fromTime")}
               values={[...TIMES]}
               style={styles.inputGroupItem}
             >
@@ -173,13 +175,13 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           <Layout style={[styles.inputGroup, styles.padded]}>
             <FormikDatepicker
               name="toDate"
-              label="Dátum vrátenia"
+              label={I18n.t("screens.home.form.toDate")}
               style={styles.inputGroupItem}
             />
 
             <FormikSelect
               name="toTime"
-              label="Čas vrátenia"
+              label={I18n.t("screens.home.form.toTime")}
               values={[...TIMES]}
               style={styles.inputGroupItem}
             >
@@ -191,7 +193,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
 
           <FormikSelect
             name="driverAge"
-            label="Vek vodiča"
+            label={I18n.t("screens.home.form.driverAge")}
             values={[...DRIVER_AGES]}
             style={[styles.fullWidth, styles.padded]}
           >
@@ -211,70 +213,82 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
             }}
             style={{ ...styles.fullWidth, ...(!expanded && styles.padded) }}
           >
-            Rozšírené vyhľadávanie
+            {I18n.t("search.extendedOptions")}
           </Button>
 
           {expanded && (
             <Layout style={[styles.nestedContainer, styles.padded]}>
               <FormikInput
                 name="query"
-                label="Model"
-                placeholder="Zadajte frázu (napr. Škoda Fábia)"
+                label={I18n.t("vehicle.model.label")}
+                placeholder={I18n.t("vehicle.model.placeholder")}
                 style={[styles.fullWidth, styles.padded]}
               />
 
               <FormikMultiselect
                 name="bodyStyle"
-                label="Karoséria"
-                placeholder="Zvoľte typ karosérie"
+                label={I18n.t("vehicle.bodyStyle.label")}
+                placeholder={I18n.t("vehicle.bodyStyle.placeholder")}
                 values={[...BODY_STYLES]}
+                valueTranslationPrefix={"vehicle.bodyStyle.type."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {BODY_STYLES.map((bodyStyle) => (
-                  <SelectItem title={bodyStyle} key={bodyStyle} />
+                  <SelectItem
+                    title={I18n.t(`vehicle.bodyStyle.type.${bodyStyle}`)}
+                    key={bodyStyle}
+                  />
                 ))}
               </FormikMultiselect>
 
               <FormikMultiselect
                 name="transmission"
-                label="Prevodovka"
-                placeholder="Zvoľte typ prevodovky"
+                label={I18n.t("vehicle.transmission.label")}
+                placeholder={I18n.t("vehicle.transmission.placeholder")}
                 values={[...TRANSMISSION_TYPES]}
+                valueTranslationPrefix={"vehicle.transmission.type."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {TRANSMISSION_TYPES.map((transmission) => (
-                  <SelectItem title={transmission} key={transmission} />
+                  <SelectItem
+                    title={I18n.t(`vehicle.transmission.type.${transmission}`)}
+                    key={transmission}
+                  />
                 ))}
               </FormikMultiselect>
 
               <FormikMultiselect
                 name="fuel"
-                label="Palivo"
-                placeholder="Zvoľte typ paliva"
+                label={I18n.t("vehicle.fuel.label")}
+                placeholder={I18n.t("vehicle.fuel.placeholder")}
                 values={[...FUEL_TYPES]}
+                valueTranslationPrefix={"vehicle.fuel.type."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {FUEL_TYPES.map((fuel) => (
-                  <SelectItem title={fuel} key={fuel} />
+                  <SelectItem
+                    title={I18n.t(`vehicle.fuel.type.${fuel}`)}
+                    key={fuel}
+                  />
                 ))}
               </FormikMultiselect>
 
               <Layout style={[styles.inputGroup, styles.padded]}>
                 <FormikInput
                   name="powerMin"
-                  label="Výkon od (kW)"
-                  placeholder="Výkon od (kW)"
+                  label={I18n.t("vehicle.power.min.label")}
+                  placeholder={I18n.t("vehicle.power.min.placeholder")}
                   style={styles.inputGroupItem}
                   keyboardType="numeric"
                 />
 
                 <FormikInput
                   name="powerMax"
-                  label="Výkon do (kW)"
-                  placeholder="Výkon do (kW)"
+                  label={I18n.t("vehicle.power.max.label")}
+                  placeholder={I18n.t("vehicle.power.max.placeholder")}
                   style={styles.inputGroupItem}
                   keyboardType="numeric"
                 />
@@ -283,16 +297,16 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               <Layout style={[styles.inputGroup, styles.padded]}>
                 <FormikInput
                   name="seatsMin"
-                  label="Počet miest od"
-                  placeholder="Počet miest od"
+                  label={I18n.t("vehicle.seats.min.label")}
+                  placeholder={I18n.t("vehicle.seats.min.placeholder")}
                   style={styles.inputGroupItem}
                   keyboardType="numeric"
                 />
 
                 <FormikInput
                   name="seatsMax"
-                  label="Počet miest do"
-                  placeholder="Počet miest do"
+                  label={I18n.t("vehicle.seats.max.label")}
+                  placeholder={I18n.t("vehicle.seats.max.placeholder")}
                   style={styles.inputGroupItem}
                   keyboardType="numeric"
                 />
@@ -305,7 +319,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
             style={styles.fullWidth}
             onPress={handleSubmit as (event: unknown) => void}
           >
-            Vyhľadaj
+            {I18n.t("search.search")}
           </Button>
         </Layout>
       )}

@@ -9,6 +9,7 @@ import Loader from "@components/loader.component";
 import { ESortBy } from "@constants/vehicle.constant";
 import { ESortDirection } from "@constants/common.constants";
 import SearchResultItem from "@components/search-result/search-result-item.component";
+import I18n from "i18n-js";
 
 const styles = StyleSheet.create({
   root: {
@@ -90,9 +91,11 @@ const SearchResultScreen = ({
     return (
       <Layout style={styles.root}>
         <Layout style={styles.container}>
-          <Text style={styles.bottomPadded}>Nenašli sa žiadne vozidlá</Text>
+          <Text style={styles.bottomPadded}>
+            {I18n.t("screens.searchResult.noVehiclesFound")}
+          </Text>
           <Button style={styles.fullWidth} onPress={() => navigation.goBack()}>
-            Zmeniť kritéria vyhľadávania
+            {I18n.t("search.changeCriteria")}
           </Button>
         </Layout>
       </Layout>

@@ -6,6 +6,8 @@ import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { Platform, UIManager } from "react-native";
+import * as Localization from "expo-localization";
+import i18n from "i18n-js";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import useCachedResources from "@hooks/useCachedResources";
@@ -14,6 +16,7 @@ import { RootStackParamList } from "@ctypes/navigation.type";
 import Screens from "@screens/index";
 import HomeScreen from "@screens/home.screen";
 import { EPlatformOs } from "@constants/common.constants";
+import Translations from "./translations";
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -22,6 +25,14 @@ if (Platform.OS === EPlatformOs.android) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 }
+
+i18n.translations = {
+  sk: Translations.sk,
+};
+
+i18n.fallbacks = true;
+i18n.defaultLocale = "sk";
+i18n.locale = Localization.locale;
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -46,8 +57,7 @@ export default function App() {
                   name="Home"
                   component={HomeScreen}
                   options={{
-                    // headerShown: false,
-                    headerTitle: "Požičovňa vozidiel",
+                    headerTitle: i18n.t("screens.home.headerTitle"),
                     headerShadowVisible: false,
                   }}
                 />
@@ -55,8 +65,7 @@ export default function App() {
                   name="SearchResult"
                   component={Screens.SearchResult}
                   options={{
-                    headerTitle: "Dostupné vozidlá",
-                    // headerTitleAlign: "center",
+                    headerTitle: i18n.t("screens.searchResult.headerTitle"),
                     headerShadowVisible: false,
                   }}
                 />
@@ -64,8 +73,7 @@ export default function App() {
                   name="VehicleDetail"
                   component={Screens.VehicleDetail}
                   options={{
-                    headerTitle: "Detail vozidla",
-                    // headerTitleAlign: "center",
+                    headerTitle: i18n.t("screens.vehicleDetail.headerTitle"),
                     headerShadowVisible: false,
                   }}
                 />
