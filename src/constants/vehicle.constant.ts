@@ -5,17 +5,9 @@ export enum ESortBy {
   power = "power",
 }
 
-export enum ETransmission {
-  manual = "manual",
-  automatic = "automatic",
-}
+export const TRANSMISSIONS = ["manual", "automatic"] as const;
 
-export enum EFuel {
-  petrol = "petrol",
-  diesel = "diesel",
-  hybrid = "hybrid",
-  electric = "electric",
-}
+export const FUELS = ["petrol", "diesel", "hybrid", "electric"] as const;
 
 export const BODY_STYLES = [
   "sedan",
@@ -26,10 +18,6 @@ export const BODY_STYLES = [
   "pickUp",
   "van",
 ] as const;
-
-export const TRANSMISSION_TYPES = Object.keys(ETransmission);
-
-export const FUEL_TYPES = Object.keys(EFuel);
 
 export const TIMES = [
   "6:00",

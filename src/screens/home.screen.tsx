@@ -12,9 +12,9 @@ import FormikSelect from "@components/formik/select.component";
 import {
   BODY_STYLES,
   DRIVER_AGES,
-  FUEL_TYPES,
+  FUELS,
   TIMES,
-  TRANSMISSION_TYPES,
+  TRANSMISSIONS,
 } from "@constants/vehicle.constant";
 import FormikDatepicker from "@components/formik/datepicker.component";
 import { combineDateTime } from "@utils/date.util";
@@ -22,7 +22,7 @@ import I18n from "i18n-js";
 
 /**
  * TODO:
- *  - fix search
+ *  - fix translation of params in vehicle search result
  *  - add detail
  *  - add booking
  *  - take timezone into account for date concatination
@@ -80,9 +80,9 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         toTime: defaultTime,
         driverAge: DRIVER_AGES[0],
         query: null,
-        bodyStyle: BODY_STYLES,
-        transmission: TRANSMISSION_TYPES,
-        fuel: FUEL_TYPES,
+        bodyStyles: BODY_STYLES,
+        transmissions: TRANSMISSIONS,
+        fuels: FUELS,
         powerMin: null,
         powerMax: null,
         seatsMin: null,
@@ -133,16 +133,16 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           .max(Number(DRIVER_AGES[DRIVER_AGES.length - 1]))
           .required(),
         query: Yup.string().nullable(),
-        bodyStyle: Yup.array()
+        bodyStyles: Yup.array()
           .of(Yup.mixed().oneOf([...BODY_STYLES]))
           .min(1)
           .required(),
-        transmission: Yup.array()
-          .of(Yup.mixed().oneOf([...TRANSMISSION_TYPES]))
+        transmissions: Yup.array()
+          .of(Yup.mixed().oneOf([...TRANSMISSIONS]))
           .min(1)
           .required(),
-        fuel: Yup.array()
-          .of(Yup.mixed().oneOf([...FUEL_TYPES]))
+        fuels: Yup.array()
+          .of(Yup.mixed().oneOf([...FUELS]))
           .min(1)
           .required(),
         powerMin: Yup.number().min(0).nullable(),
@@ -226,7 +226,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               />
 
               <FormikMultiselect
-                name="bodyStyle"
+                name="bodyStyles"
                 label={I18n.t("vehicle.bodyStyle.label")}
                 placeholder={I18n.t("vehicle.bodyStyle.placeholder")}
                 values={[...BODY_STYLES]}
@@ -243,15 +243,15 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               </FormikMultiselect>
 
               <FormikMultiselect
-                name="transmission"
+                name="transmissions"
                 label={I18n.t("vehicle.transmission.label")}
                 placeholder={I18n.t("vehicle.transmission.placeholder")}
-                values={[...TRANSMISSION_TYPES]}
+                values={[...TRANSMISSIONS]}
                 valueTranslationPrefix={"vehicle.transmission.type."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
-                {TRANSMISSION_TYPES.map((transmission) => (
+                {TRANSMISSIONS.map((transmission) => (
                   <SelectItem
                     title={I18n.t(`vehicle.transmission.type.${transmission}`)}
                     key={transmission}
@@ -260,15 +260,15 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               </FormikMultiselect>
 
               <FormikMultiselect
-                name="fuel"
+                name="fuels"
                 label={I18n.t("vehicle.fuel.label")}
                 placeholder={I18n.t("vehicle.fuel.placeholder")}
-                values={[...FUEL_TYPES]}
+                values={[...FUELS]}
                 valueTranslationPrefix={"vehicle.fuel.type."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
-                {FUEL_TYPES.map((fuel) => (
+                {FUELS.map((fuel) => (
                   <SelectItem
                     title={I18n.t(`vehicle.fuel.type.${fuel}`)}
                     key={fuel}

@@ -1,5 +1,14 @@
-import { EFuel, ESortBy, ETransmission } from "@constants/vehicle.constant";
+import {
+  ESortBy,
+  BODY_STYLES,
+  FUELS,
+  TRANSMISSIONS,
+} from "@constants/vehicle.constant";
 import { TPaginationParams as TCommonPaginationParams } from "./common.type";
+
+export type TTransmission = typeof TRANSMISSIONS[number];
+export type TFuel = typeof FUELS[number];
+export type TBodyStyle = typeof BODY_STYLES[number];
 
 export type TVehicle = {
   id: string;
@@ -8,8 +17,9 @@ export type TVehicle = {
   mileage: number;
   make: string;
   model: string;
-  fuel: keyof typeof EFuel;
-  transmission: keyof typeof ETransmission;
+  fuel: TFuel;
+  transmission: TTransmission;
+  bodyStyle: TBodyStyle;
   power: number;
   seats: number;
   doors: number;
@@ -29,8 +39,9 @@ export type TSearchParams = {
   seatsMax?: number | null;
   powerMin?: number | null;
   powerMax?: number | null;
-  transmission?: string[];
-  fuel?: string[];
+  transmissions: readonly TTransmission[];
+  fuels: readonly TFuel[];
+  bodyStyles: readonly TBodyStyle[];
 };
 
 export type TPaginationParams = TCommonPaginationParams & {
