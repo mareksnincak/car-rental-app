@@ -22,7 +22,6 @@ import I18n from "i18n-js";
 
 /**
  * TODO:
- *  - fix translation of params in vehicle search result
  *  - add detail
  *  - add booking
  *  - take timezone into account for date concatination

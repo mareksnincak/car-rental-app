@@ -112,11 +112,13 @@ const SearchResultItem = ({ vehicle }: { vehicle: TVehicle }) => {
           <Layout>
             <Attribute
               label={I18n.t("vehicle.fuel.label")}
-              value={vehicle.fuel}
+              value={I18n.t(`vehicle.fuel.type.${vehicle.fuel}`)}
             />
             <Attribute
               label={I18n.t("vehicle.transmission.label")}
-              value={vehicle.transmission}
+              value={I18n.t(
+                `vehicle.transmission.type.${vehicle.transmission}`
+              )}
             />
             <Attribute
               label={I18n.t("vehicle.seats.label")}
