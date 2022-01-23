@@ -229,13 +229,13 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label={I18n.t("vehicle.bodyStyle.label")}
                 placeholder={I18n.t("vehicle.bodyStyle.placeholder")}
                 values={[...BODY_STYLES]}
-                valueTranslationPrefix={"vehicle.bodyStyle.type."}
+                valueTranslationPrefix={"vehicle.bodyStyle.values."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {BODY_STYLES.map((bodyStyle) => (
                   <SelectItem
-                    title={I18n.t(`vehicle.bodyStyle.type.${bodyStyle}`)}
+                    title={I18n.t(`vehicle.bodyStyle.values.${bodyStyle}`)}
                     key={bodyStyle}
                   />
                 ))}
@@ -246,13 +246,15 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label={I18n.t("vehicle.transmission.label")}
                 placeholder={I18n.t("vehicle.transmission.placeholder")}
                 values={[...TRANSMISSIONS]}
-                valueTranslationPrefix={"vehicle.transmission.type."}
+                valueTranslationPrefix={"vehicle.transmission.values."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {TRANSMISSIONS.map((transmission) => (
                   <SelectItem
-                    title={I18n.t(`vehicle.transmission.type.${transmission}`)}
+                    title={I18n.t(
+                      `vehicle.transmission.values.${transmission}`
+                    )}
                     key={transmission}
                   />
                 ))}
@@ -263,13 +265,13 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
                 label={I18n.t("vehicle.fuel.label")}
                 placeholder={I18n.t("vehicle.fuel.placeholder")}
                 values={[...FUELS]}
-                valueTranslationPrefix={"vehicle.fuel.type."}
+                valueTranslationPrefix={"vehicle.fuel.values."}
                 style={[styles.fullWidth, styles.padded]}
                 allSelected={true}
               >
                 {FUELS.map((fuel) => (
                   <SelectItem
-                    title={I18n.t(`vehicle.fuel.type.${fuel}`)}
+                    title={I18n.t(`vehicle.fuel.values.${fuel}`)}
                     key={fuel}
                   />
                 ))}

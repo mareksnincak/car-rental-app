@@ -8,7 +8,7 @@ export default {
     transmission: {
       label: "Prevodovka",
       placeholder: "Zvoľte typ prevodovky",
-      type: {
+      values: {
         manual: "manuálna",
         automatic: "automatická",
       },
@@ -16,7 +16,7 @@ export default {
     fuel: {
       label: "Palivo",
       placeholder: "Zvoľte typ paliva",
-      type: {
+      values: {
         petrol: "benzín",
         diesel: "diesel",
         hybrid: "hybrid",
@@ -26,7 +26,7 @@ export default {
     bodyStyle: {
       label: "Karoséria",
       placeholder: "Zvoľte typ karosérie",
-      type: {
+      values: {
         sedan: "sedan",
         hatchback: "hatchback",
         liftback: "liftback",
@@ -65,6 +65,21 @@ export default {
     mileage: {
       label: "Nájazd",
     },
+    color: {
+      label: "Farba",
+      values: {
+        white: "biela",
+        black: "čierna",
+        gray: "sivá",
+        silver: "strieborná",
+        red: "červená",
+        blue: "modrá",
+        brown: "hnedá",
+        green: "zelená",
+        orange: "oranžová",
+        yellow: "žltá",
+      },
+    },
   },
   screens: {
     home: {
@@ -79,7 +94,8 @@ export default {
     },
     searchResult: {
       headerTitle: "Dostupné vozidlá",
-      noVehiclesFound: "Nenašli sa žiadne vozidlá",
+      noVehiclesFound:
+        "Ľutujeme, pre vami zvolené kritéria momentálne nemáme dostupné žiadne vozidlo. Skúste zmeniť kritéria vyhľadávania:",
     },
     vehicleDetail: {
       headerTitle: "Detail vozidla",
