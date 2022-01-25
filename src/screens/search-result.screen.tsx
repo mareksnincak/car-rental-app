@@ -50,9 +50,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const renderItem = ({ item }: ListRenderItemInfo<TVehicle>) => (
-  <SearchResultItem vehicle={item} />
-);
+const renderSearchResultItem = (
+  { item }: ListRenderItemInfo<TVehicle>,
+  onDetailPress: () => void
+) => <SearchResultItem vehicle={item} onDetailPress={onDetailPress} />;
 
 const SearchResultScreen = ({
   navigation,
@@ -107,7 +108,14 @@ const SearchResultScreen = ({
       <List
         style={styles.flex}
         data={vehicles}
-        renderItem={renderItem}
+        renderItem={(itemInfo) =>
+          renderSearchResultItem(itemInfo, () => {
+            navigation.navigate("VehicleDetail", {
+              vehicle: itemInfo.item,
+              searchParams,
+            });
+          })
+        }
         onEndReached={() => {
           if (isLoading.current) {
             return;

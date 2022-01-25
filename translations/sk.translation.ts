@@ -97,9 +97,6 @@ export default {
       noVehiclesFound:
         "Ľutujeme, pre vami zvolené kritéria momentálne nemáme dostupné žiadne vozidlo. Skúste zmeniť kritéria vyhľadávania:",
     },
-    vehicleDetail: {
-      headerTitle: "Detail vozidla",
-    },
   },
   components: {
     searchResultItem: {

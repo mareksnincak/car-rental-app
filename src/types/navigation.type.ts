@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { TSearchParams } from "./vehicle.type";
+import { TSearchParams, TVehicle } from "./vehicle.type";
 
 declare global {
   namespace ReactNavigation {
@@ -10,7 +10,7 @@ declare global {
 export type RootStackParamList = {
   Home: undefined;
   SearchResult: { searchParams: TSearchParams };
-  VehicleDetail: undefined;
+  VehicleDetail: { searchParams: TSearchParams; vehicle: TVehicle };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

@@ -17,6 +17,7 @@ import Screens from "@screens/index";
 import HomeScreen from "@screens/home.screen";
 import { EPlatformOs } from "@constants/common.constants";
 import Translations from "./translations";
+import VehicleUtils from "@utils/vehicle.util";
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -72,10 +73,12 @@ export default function App() {
                 <Screen
                   name="VehicleDetail"
                   component={Screens.VehicleDetail}
-                  options={{
-                    headerTitle: i18n.t("screens.vehicleDetail.headerTitle"),
+                  options={({ route }) => ({
+                    title: VehicleUtils.getFullVehicleName(
+                      route.params.vehicle
+                    ),
                     headerShadowVisible: false,
-                  }}
+                  })}
                 />
               </Navigator>
             </NavigationContainer>

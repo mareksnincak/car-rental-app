@@ -1,10 +1,11 @@
 import React from "react";
 import { StyleSheet, Image, ViewStyle, StyleProp } from "react-native";
 import { Text, Layout, Button, Card, ListItem } from "@ui-kitten/components";
+import I18n from "i18n-js";
 
 import { TVehicle } from "@ctypes/vehicle.type";
 import Attribute from "@components/attribute.component";
-import I18n from "i18n-js";
+import VehicleUtils from "@utils/vehicle.util";
 
 const styles = StyleSheet.create({
   footerContainer: {
@@ -17,7 +18,8 @@ const styles = StyleSheet.create({
     flex: 0,
     flexBasis: 150,
     flexShrink: 1,
-    margin: -16,
+    marginVertical: -16,
+    marginLeft: -8,
     marginRight: 16,
   },
   cardContainer: {
@@ -36,12 +38,15 @@ const styles = StyleSheet.create({
     flex: 0,
     flexBasis: 150,
     flexShrink: 1,
-    aspectRatio: 1.5,
+    aspectRatio: 2,
     marginRight: 16,
-    marginLeft: -16,
+    marginLeft: -8,
   },
   detailButton: {
     flex: 1,
+  },
+  headerText: {
+    marginHorizontal: -6,
   },
 });
 
@@ -55,8 +60,8 @@ const Header = React.memo(
     style?: StyleProp<ViewStyle>;
   }) => (
     <Layout style={style}>
-      <Text category="h6" style={styles.bold}>
-        {make} {model} {year}
+      <Text category="h6" style={[styles.headerText, styles.bold]}>
+        {VehicleUtils.getFullVehicleName({ make, model, year })}
       </Text>
     </Layout>
   )
@@ -64,20 +69,26 @@ const Header = React.memo(
 
 const Footer = React.memo(
   ({
-    price,
+    vehicle,
     style,
+    onDetailPress,
   }: {
-    price?: number | null;
+    vehicle: TVehicle;
     style?: StyleProp<ViewStyle>;
+    onDetailPress: () => void;
   }) => {
     return (
       <Layout style={[style, styles.footerContainer]}>
-        {price && (
+        {vehicle.price?.total && (
           <Layout style={[style, styles.footerPriceContainer]}>
-            <Text style={styles.bold}>{price}€</Text>
+            <Text style={styles.bold}>{vehicle.price.total}€</Text>
           </Layout>
         )}
-        <Button size="small" style={styles.detailButton}>
+        <Button
+          size="small"
+          style={styles.detailButton}
+          onPress={onDetailPress}
+        >
           {I18n.t("components.searchResultItem.showDetail")}
         </Button>
       </Layout>
@@ -85,7 +96,13 @@ const Footer = React.memo(
   }
 );
 
-const SearchResultItem = ({ vehicle }: { vehicle: TVehicle }) => {
+const SearchResultItem = ({
+  vehicle,
+  onDetailPress,
+}: {
+  vehicle: TVehicle;
+  onDetailPress: () => void;
+}) => {
   return (
     <ListItem style={styles.fullWidth}>
       <Card
@@ -99,12 +116,16 @@ const SearchResultItem = ({ vehicle }: { vehicle: TVehicle }) => {
           />
         )}
         footer={(viewProps) => (
-          <Footer price={vehicle.price?.total} style={viewProps?.style} />
+          <Footer
+            vehicle={vehicle}
+            style={viewProps?.style}
+            onDetailPress={onDetailPress}
+          />
         )}
       >
         <Layout style={[styles.fullWidth, styles.cardContainer]}>
           <Image
-            style={[styles.itemImage]}
+            style={styles.itemImage}
             source={{
               uri: vehicle.imageUrl,
             }}
