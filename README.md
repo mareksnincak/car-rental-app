@@ -6,6 +6,7 @@ Cross platform mobile app for renting a car. Connects to [Car rental API](https:
 ### Prerequisites
 - [Expo](https://docs.expo.dev/get-started/installation/) and it's dependencies
 - [OPTIONAL] [Yarn](https://classic.yarnpkg.com/lang/en/docs/install). Alternatively you can use npm
+- Running instance of [Car rental API](https://github.com/mareksnincak/car-rental-api)
 
 ### Running the app
 
