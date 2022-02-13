@@ -97,6 +97,15 @@ export default {
       noVehiclesFound:
         "Ľutujeme, pre vami zvolené kritéria momentálne nemáme dostupné žiadne vozidlo. Skúste zmeniť kritéria vyhľadávania:",
     },
+    vehicleDetail: {
+      vehicleParameters: "Parametre vozidla",
+      summary: "Zhrnutie rezervácie",
+      book: "Rezervuj",
+      bookingDate: "Dátum vyzdvihnutia",
+      returnDate: "Dátum vrátenia",
+      deposit: "Výška zálohy",
+      price: "Cena výpožičky",
+    },
   },
   components: {
     searchResultItem: {

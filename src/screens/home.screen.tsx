@@ -3,7 +3,8 @@ import { Dimensions, LayoutAnimation, StyleSheet } from "react-native";
 import { SelectItem, Button, Icon, Layout } from "@ui-kitten/components";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import dayjs from "dayjs";
+import I18n from "i18n-js";
+import moment from "moment";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
@@ -18,13 +19,10 @@ import {
 } from "@constants/vehicle.constant";
 import FormikDatepicker from "@components/formik/datepicker.component";
 import { combineDateTime } from "@utils/date.util";
-import I18n from "i18n-js";
 
 /**
  * TODO:
- *  - add detail
  *  - add booking
- *  - take timezone into account for date concatination
  */
 
 const styles = StyleSheet.create({
@@ -67,14 +65,14 @@ const CollapseIcon = (props: unknown) => <Icon {...props} name="chevron-up" />;
 const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const [expanded, setExpanded] = React.useState(false);
 
-  const startOfDay = dayjs().startOf("day").toDate();
+  const startOfDay = moment().startOf("day").toDate();
   const defaultTime = "12:00";
 
   return (
     <Formik
       initialValues={{
-        fromDate: dayjs().add(1, "day").startOf("day").toDate(),
-        toDate: dayjs().add(8, "days").startOf("day").toDate(),
+        fromDate: moment().add(1, "day").startOf("day").toDate(),
+        toDate: moment().add(8, "days").startOf("day").toDate(),
         fromTime: defaultTime,
         toTime: defaultTime,
         driverAge: DRIVER_AGES[0],

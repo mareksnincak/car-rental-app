@@ -8,6 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Platform, UIManager } from "react-native";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
+import "moment/locale/sk";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import useCachedResources from "@hooks/useCachedResources";

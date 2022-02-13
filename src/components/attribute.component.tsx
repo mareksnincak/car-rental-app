@@ -4,9 +4,9 @@ import { Layout, LayoutProps, Text, TextProps } from "@ui-kitten/components";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     display: "flex",
     flexDirection: "row",
+    marginBottom: 4,
   },
   bold: { fontWeight: "bold" },
 });

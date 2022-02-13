@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, ListRenderItemInfo, StyleSheet } from "react-native";
 import { Text, Layout, Button, List } from "@ui-kitten/components";
+import I18n from "i18n-js";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import { TVehicle } from "@ctypes/vehicle.type";
@@ -9,7 +10,6 @@ import Loader from "@components/loader.component";
 import { ESortBy } from "@constants/vehicle.constant";
 import { ESortDirection } from "@constants/common.constants";
 import SearchResultItem from "@components/search-result/search-result-item.component";
-import I18n from "i18n-js";
 
 const styles = StyleSheet.create({
   root: {
