@@ -5,7 +5,7 @@ import I18n from "i18n-js";
 import { Button, Divider, Layout, Text } from "@ui-kitten/components";
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import Attribute from "@components/attribute.component";
-import DetailSection from "@components/detail-section";
+import DetailSection from "@components/detail-section.component";
 import BookingSummary from "@components/booking-summary.component";
 
 const styles = StyleSheet.create({

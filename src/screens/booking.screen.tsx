@@ -4,12 +4,13 @@ import { Button, Divider, Layout } from "@ui-kitten/components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import I18n from "i18n-js";
+import axios from "axios";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
 import { BookingApi } from "@api/booking.api";
 import BookingSummary from "@components/booking-summary.component";
-import DetailSection from "@components/detail-section";
+import DetailSection from "@components/detail-section.component";
 
 const styles = StyleSheet.create({
   container: {
@@ -51,19 +52,45 @@ const BookingScreen = ({
         const { name, idNumber, email } = values;
         const { fromDate, toDate, driverAge } = searchParams;
 
-        await BookingApi.createBooking({
-          vehicleId: vehicle.id,
-          fromDate,
-          toDate,
-          driver: {
-            name,
-            age: driverAge,
-            email,
-            idNumber,
-          },
-        });
+        try {
+          await BookingApi.createBooking({
+            vehicleId: vehicle.id,
+            fromDate,
+            toDate,
+            driver: {
+              name,
+              age: driverAge,
+              email,
+              idNumber,
+            },
+          });
+        } catch (err) {
+          if (
+            axios.isAxiosError(err) &&
+            err.response?.data?.type === "conflict"
+          ) {
+            return navigation.navigate("Info", {
+              type: "error",
+              text: I18n.t("screens.booking.conflict"),
+              buttonText: I18n.t("common.returnHome"),
+              returnType: "home",
+            });
+          }
 
-        navigation.navigate("Home");
+          return navigation.navigate("Info", {
+            type: "error",
+            text: I18n.t("error.default"),
+            buttonText: I18n.t("common.returnBack"),
+            returnType: "back",
+          });
+        }
+
+        navigation.navigate("Info", {
+          type: "success",
+          text: I18n.t("screens.booking.confirmation"),
+          buttonText: I18n.t("common.returnHome"),
+          returnType: "home",
+        });
       }}
       validateOnChange={false}
       validationSchema={Yup.object({

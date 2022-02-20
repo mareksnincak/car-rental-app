@@ -91,6 +91,11 @@ export default function App() {
                     headerShadowVisible: false,
                   })}
                 />
+                <Screen
+                  name="Info"
+                  component={Screens.Info}
+                  options={{ headerShown: false }}
+                />
               </Navigator>
             </NavigationContainer>
             <StatusBar style="dark" />

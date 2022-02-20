@@ -1,4 +1,12 @@
 export default {
+  error: {
+    default:
+      "Nastala neočakávaná chyba, kontaktujte prosím našu zákaznícku linku",
+  },
+  common: {
+    returnHome: "Návrat na domovskú obrazovku",
+    returnBack: "Návrat späť",
+  },
   search: {
     search: "Vyhľadaj",
     extendedOptions: "Rozšírené vyhľadávanie",
@@ -123,6 +131,8 @@ export default {
       },
       book: "Rezervuj s povinnosťou platby",
       bookingInfo: "Rezervačné údaje",
+      confirmation: "Rezervácia vozidla prebehla úspešne",
+      conflict: "Vozidlo už nie je dostupné, vyberte si prosím iné vozidlo",
     },
   },
   components: {

@@ -66,17 +66,26 @@ const SearchResultScreen = ({
   const [page, setPage] = useState(1);
 
   const fetchData = async () => {
-    isLoading.current = true;
-    const { data } = await VehicleApi.search(searchParams, {
-      page,
-      pageSize: 10,
-      sortBy: ESortBy.price,
-      sortDirection: ESortDirection.ASC,
-    });
+    try {
+      isLoading.current = true;
+      const { data } = await VehicleApi.search(searchParams, {
+        page,
+        pageSize: 10,
+        sortBy: ESortBy.price,
+        sortDirection: ESortDirection.ASC,
+      });
 
-    setVehicles((prevData) => [...prevData, ...data]);
-    setPage((page) => page + 1);
-    isLoading.current = false;
+      setVehicles((prevData) => [...prevData, ...data]);
+      setPage((page) => page + 1);
+      isLoading.current = false;
+    } catch (err) {
+      return navigation.navigate("Info", {
+        type: "error",
+        text: I18n.t("error.default"),
+        buttonText: I18n.t("common.returnHome"),
+        returnType: "home",
+      });
+    }
   };
 
   useEffect(() => {

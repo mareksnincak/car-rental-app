@@ -20,11 +20,6 @@ import {
 import FormikDatepicker from "@components/formik/datepicker.component";
 import { combineDateTime } from "@utils/date.util";
 
-/**
- * TODO:
- *  - add booking
- */
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

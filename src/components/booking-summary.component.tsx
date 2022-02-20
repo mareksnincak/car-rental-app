@@ -2,7 +2,7 @@ import React from "react";
 import I18n from "i18n-js";
 import { LayoutProps } from "@ui-kitten/components";
 
-import DetailSection from "./detail-section";
+import DetailSection from "./detail-section.component";
 import Attribute from "./attribute.component";
 import { toReadableDate } from "@utils/date.util";
 import { TSearchParams, TVehicle } from "@ctypes/vehicle.type";

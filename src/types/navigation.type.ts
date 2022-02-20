@@ -12,6 +12,12 @@ export type RootStackParamList = {
   SearchResult: { searchParams: TSearchParams };
   VehicleDetail: { searchParams: TSearchParams; vehicle: TVehicle };
   Booking: { searchParams: TSearchParams; vehicle: TVehicle };
+  Info: {
+    type?: "success" | "error";
+    text: string;
+    buttonText: string;
+    returnType: "home" | "back";
+  };
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
