@@ -49,7 +49,7 @@ export default {
     },
     model: {
       label: "Model",
-      placeholder: "Zadajte frázu (napr. Škoda Fábia)",
+      placeholder: "Napr. Škoda Fábia",
     },
     power: {
       label: "Výkon",
@@ -100,11 +100,29 @@ export default {
     vehicleDetail: {
       vehicleParameters: "Parametre vozidla",
       summary: "Zhrnutie rezervácie",
-      book: "Rezervuj",
+      book: "Pokračovať na rezerváciu",
       bookingDate: "Dátum vyzdvihnutia",
       returnDate: "Dátum vrátenia",
       deposit: "Výška zálohy",
       price: "Cena výpožičky",
+    },
+    booking: {
+      headerTitle: "Rezervácia - {{vehicleName}}",
+      form: {
+        name: {
+          label: "Meno",
+          placeholder: "Napr. Jozef Novák",
+        },
+        idNumber: {
+          label: "Číslo OP",
+          placeholder: "Napr. EC123456",
+        },
+        email: {
+          label: "Email",
+          placeholder: "Napr. jozef.novak@example.com",
+        },
+      },
+      book: "Rezervuj s povinnosťou platby",
     },
   },
   components: {

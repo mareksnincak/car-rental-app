@@ -107,7 +107,9 @@ const VehicleDetailScreen = ({
       </Layout>
       <Button
         style={[styles.fullWidth, styles.button]}
-        // onPress={handleSubmit as (event: unknown) => void}
+        onPress={() =>
+          navigation.navigate("Booking", { searchParams, vehicle })
+        }
       >
         {I18n.t("screens.vehicleDetail.book")}
       </Button>

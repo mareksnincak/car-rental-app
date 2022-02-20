@@ -10,7 +10,7 @@ import { TPaginatedAxiosResponse } from "@ctypes/axios.type";
 import { serializeQueryParams } from "@utils/axios.util";
 
 const axiosInstance = axios.create({
-  baseURL: API_URL,
+  baseURL: `${API_URL}/vehicles`,
 });
 
 const search = async (
@@ -23,7 +23,7 @@ const search = async (
   };
 
   const response: TPaginatedAxiosResponse<TVehicle[]> = await axiosInstance.get(
-    "/vehicles",
+    "/",
     {
       params,
       paramsSerializer: serializeQueryParams,

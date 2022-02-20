@@ -81,6 +81,18 @@ export default function App() {
                     headerShadowVisible: false,
                   })}
                 />
+                <Screen
+                  name="Booking"
+                  component={Screens.Booking}
+                  options={({ route }) => ({
+                    title: i18n.t("screens.booking.headerTitle", {
+                      vehicleName: VehicleUtils.getFullVehicleName(
+                        route.params.vehicle
+                      ),
+                    }),
+                    headerShadowVisible: false,
+                  })}
+                />
               </Navigator>
             </NavigationContainer>
             <StatusBar style="dark" />
