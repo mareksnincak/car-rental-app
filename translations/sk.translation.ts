@@ -107,7 +107,6 @@ export default {
       price: "Cena výpožičky",
     },
     booking: {
-      headerTitle: "Rezervácia - {{vehicleName}}",
       form: {
         name: {
           label: "Meno",
@@ -123,6 +122,7 @@ export default {
         },
       },
       book: "Rezervuj s povinnosťou platby",
+      bookingInfo: "Rezervačné údaje",
     },
   },
   components: {

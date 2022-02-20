@@ -85,11 +85,9 @@ export default function App() {
                   name="Booking"
                   component={Screens.Booking}
                   options={({ route }) => ({
-                    title: i18n.t("screens.booking.headerTitle", {
-                      vehicleName: VehicleUtils.getFullVehicleName(
-                        route.params.vehicle
-                      ),
-                    }),
+                    title: VehicleUtils.getFullVehicleName(
+                      route.params.vehicle
+                    ),
                     headerShadowVisible: false,
                   })}
                 />

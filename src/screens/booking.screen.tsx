@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
-import { Button, Layout } from "@ui-kitten/components";
+import { Button, Divider, Layout } from "@ui-kitten/components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import I18n from "i18n-js";
@@ -8,6 +8,8 @@ import I18n from "i18n-js";
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
 import { BookingApi } from "@api/booking.api";
+import BookingSummary from "@components/booking-summary.component";
+import DetailSection from "@components/detail-section";
 
 const styles = StyleSheet.create({
   container: {
@@ -19,12 +21,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   fullWidth: { flex: 1, flexShrink: 0, flexBasis: "100%" },
-  padded: {
+  bottomPadded: {
     marginBottom: 8,
+  },
+  verticalPadded: {
+    marginVertical: 8,
   },
   button: {
     marginTop: 8,
   },
+  divider: { marginVertical: 16 },
+  driverInfo: { flexDirection: "row", flexWrap: "wrap" },
 });
 
 const BookingScreen = ({
@@ -67,24 +74,42 @@ const BookingScreen = ({
     >
       {({ handleSubmit }) => (
         <Layout style={styles.container}>
-          <FormikInput
-            name="name"
-            label={I18n.t("screens.booking.form.name.label")}
-            placeholder={I18n.t("screens.booking.form.name.placeholder")}
-            style={[styles.fullWidth, styles.padded]}
+          <DetailSection
+            title={I18n.t("screens.booking.bookingInfo")}
+            layoutProps={{
+              style: [styles.fullWidth, styles.driverInfo],
+            }}
+          >
+            <FormikInput
+              name="name"
+              label={I18n.t("screens.booking.form.name.label")}
+              placeholder={I18n.t("screens.booking.form.name.placeholder")}
+              style={[styles.fullWidth, styles.bottomPadded]}
+            />
+            <FormikInput
+              name="idNumber"
+              label={I18n.t("screens.booking.form.idNumber.label")}
+              placeholder={I18n.t("screens.booking.form.idNumber.placeholder")}
+              style={[styles.fullWidth, styles.bottomPadded]}
+            />
+            <FormikInput
+              name="email"
+              label={I18n.t("screens.booking.form.email.label")}
+              placeholder={I18n.t("screens.booking.form.email.placeholder")}
+              style={[styles.fullWidth, styles.bottomPadded]}
+            />
+          </DetailSection>
+
+          <Divider style={[styles.divider, styles.fullWidth]} />
+
+          <BookingSummary
+            vehicle={vehicle}
+            searchParams={searchParams}
+            layoutProps={{
+              style: [styles.fullWidth, styles.bottomPadded],
+            }}
           />
-          <FormikInput
-            name="idNumber"
-            label={I18n.t("screens.booking.form.idNumber.label")}
-            placeholder={I18n.t("screens.booking.form.idNumber.placeholder")}
-            style={[styles.fullWidth, styles.padded]}
-          />
-          <FormikInput
-            name="email"
-            label={I18n.t("screens.booking.form.email.label")}
-            placeholder={I18n.t("screens.booking.form.email.placeholder")}
-            style={[styles.fullWidth, styles.padded]}
-          />
+
           <Button
             style={[styles.fullWidth, styles.button]}
             onPress={handleSubmit as (event: unknown) => void}
