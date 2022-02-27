@@ -27,7 +27,7 @@ const enableSentry = process.env.SENTRY_ENABLED === "true";
 Sentry.init({
   enabled: enableSentry,
   dsn: process.env.SENTRY_DSN,
-  enableInExpoDevelopment: true,
+  enableInExpoDevelopment: false,
   debug: enableSentry && __DEV__,
 });
 

@@ -2,9 +2,9 @@ import { ConfigContext, ExpoConfig } from "@expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "car-rental",
+  name: "Car rental",
   slug: "car-rental",
-  version: "1.1.1",
+  version: "1.1.3",
   orientation: "portrait",
   icon: "./src/assets/images/icon.png",
   scheme: "myapp",
