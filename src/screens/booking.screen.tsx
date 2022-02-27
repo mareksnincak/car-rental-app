@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
-import { Button, Divider, Layout } from "@ui-kitten/components";
+import { Button, Divider, Layout, Spinner } from "@ui-kitten/components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import I18n from "i18n-js";
@@ -36,12 +36,16 @@ const styles = StyleSheet.create({
   driverInfo: { flexDirection: "row", flexWrap: "wrap" },
 });
 
+const SpinnerIcon = (props: unknown) => <Spinner />;
+
 const BookingScreen = ({
   navigation,
   route: {
     params: { vehicle, searchParams },
   },
 }: RootStackScreenProps<"Booking">) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   return (
     <Formik
       initialValues={{
@@ -54,6 +58,7 @@ const BookingScreen = ({
         const { fromDate, toDate, driverAge } = searchParams;
 
         try {
+          setIsSubmitting(true);
           await BookingApi.createBooking({
             vehicleId: vehicle.id,
             fromDate,
@@ -143,8 +148,10 @@ const BookingScreen = ({
           <Button
             style={[styles.fullWidth, styles.button]}
             onPress={handleSubmit as (event: unknown) => void}
+            disabled={isSubmitting}
+            accessoryRight={isSubmitting ? SpinnerIcon : undefined}
           >
-            {I18n.t("screens.booking.book")}
+            {isSubmitting ? undefined : I18n.t("screens.booking.book")}
           </Button>
         </Layout>
       )}
