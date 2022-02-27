@@ -3,6 +3,7 @@ module.exports = function(api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      "inline-dotenv",
       [
         'module-resolver',
         {
@@ -18,15 +19,6 @@ module.exports = function(api) {
             "@utils": "./src/utils",
           },
         },
-      ],
-      [
-        "module:react-native-dotenv",
-        {
-          "moduleName": "@env",
-          "path": ".env",
-          "safe": true,
-          "allowUndefined": false
-        }
       ]
     ],
   };

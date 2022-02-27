@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import I18n from "i18n-js";
 import axios from "axios";
+import * as Sentry from "sentry-expo";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
@@ -65,6 +66,8 @@ const BookingScreen = ({
             },
           });
         } catch (err) {
+          Sentry.Native.captureException(err);
+
           if (
             axios.isAxiosError(err) &&
             err.response?.data?.type === "conflict"

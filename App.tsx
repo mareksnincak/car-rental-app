@@ -8,6 +8,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Platform, UIManager } from "react-native";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
+import * as Sentry from "sentry-expo";
 import "moment/locale/sk";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -19,6 +20,15 @@ import HomeScreen from "@screens/home.screen";
 import { EPlatformOs } from "@constants/common.constants";
 import Translations from "./translations";
 import VehicleUtils from "@utils/vehicle.util";
+
+const enableSentry = process.env.SENTRY_ENABLED === "true";
+
+Sentry.init({
+  enabled: enableSentry,
+  dsn: process.env.SENTRY_DSN,
+  enableInExpoDevelopment: true,
+  debug: enableSentry && __DEV__,
+});
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 

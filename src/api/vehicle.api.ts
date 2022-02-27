@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import { API_URL } from "@env";
 import {
   TPaginationParams,
   TSearchParams,
@@ -10,7 +9,7 @@ import { TPaginatedAxiosResponse } from "@ctypes/axios.type";
 import { serializeQueryParams } from "@utils/axios.util";
 
 const axiosInstance = axios.create({
-  baseURL: `${API_URL}/vehicles`,
+  baseURL: `${process.env.API_URL}/vehicles`,
 });
 
 const search = async (

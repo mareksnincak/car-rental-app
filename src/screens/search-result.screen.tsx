@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, ListRenderItemInfo, StyleSheet } from "react-native";
 import { Text, Layout, Button, List } from "@ui-kitten/components";
 import I18n from "i18n-js";
+import * as Sentry from "sentry-expo";
 
 import { RootStackScreenProps } from "@ctypes/navigation.type";
 import { TVehicle } from "@ctypes/vehicle.type";
@@ -79,6 +80,8 @@ const SearchResultScreen = ({
       setPage((page) => page + 1);
       isLoading.current = false;
     } catch (err) {
+      Sentry.Native.captureException(err);
+
       return navigation.navigate("Info", {
         type: "error",
         text: I18n.t("error.default"),
