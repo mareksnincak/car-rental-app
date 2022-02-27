@@ -70,7 +70,7 @@ const VehicleDetailScreen = ({
           />
           <Attribute
             label={I18n.t("vehicle.power.label")}
-            value={`${Number(vehicle.power).toFixed(0)} k`}
+            value={`${Number(vehicle.power).toFixed(0)} kW`}
           />
           <Attribute
             label={I18n.t("vehicle.color.label")}
