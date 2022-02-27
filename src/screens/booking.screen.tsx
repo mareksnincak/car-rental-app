@@ -71,8 +71,6 @@ const BookingScreen = ({
             },
           });
         } catch (err) {
-          Sentry.Native.captureException(err);
-
           if (
             axios.isAxiosError(err) &&
             err.response?.data?.type === "conflict"
@@ -84,6 +82,9 @@ const BookingScreen = ({
               returnType: "home",
             });
           }
+
+          Sentry.Native.captureException(err);
+          setIsSubmitting(false);
 
           return navigation.navigate("Info", {
             type: "error",
