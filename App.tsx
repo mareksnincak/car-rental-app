@@ -20,6 +20,7 @@ import HomeScreen from "@screens/home.screen";
 import { EPlatformOs } from "@constants/common.constants";
 import Translations from "./translations";
 import VehicleUtils from "@utils/vehicle.util";
+import { DEFAULT_LOCALE } from "@constants/date.constants";
 
 const enableSentry = process.env.SENTRY_ENABLED === "true";
 
@@ -43,7 +44,7 @@ i18n.translations = {
 };
 
 i18n.fallbacks = true;
-i18n.defaultLocale = "sk";
+i18n.defaultLocale = DEFAULT_LOCALE;
 i18n.locale = Localization.locale;
 
 export default function App() {
