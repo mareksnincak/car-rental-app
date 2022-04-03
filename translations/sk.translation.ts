@@ -12,6 +12,10 @@ export default {
     extendedOptions: "Rozšírené vyhľadávanie",
     changeCriteria: "Zmeniť kritéria vyhľadávania",
   },
+  booking: {
+    from: "Od",
+    to: "Do",
+  },
   vehicle: {
     transmission: {
       label: "Prevodovka",
@@ -137,6 +141,11 @@ export default {
       bookingInfo: "Rezervačné údaje",
       confirmation: "Rezervácia vozidla prebehla úspešne",
       conflict: "Vozidlo už nie je dostupné, vyberte si prosím iné vozidlo",
+    },
+    bookedVehicles: {
+      headerTitle: "Zapožičané vozidlá",
+      noBookingsFound: "Aktuálne nemáte zapožičané žiadne vozidlo",
+      returnVehicle: "Vrátiť vozidlo",
     },
   },
   components: {

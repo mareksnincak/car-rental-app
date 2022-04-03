@@ -10,7 +10,7 @@ import { VehicleApi } from "@api/vehicle.api";
 import Loader from "@components/loader.component";
 import { ESortBy } from "@constants/vehicle.constant";
 import { ESortDirection } from "@constants/common.constants";
-import SearchResultItem from "@components/search-result/search-result-item.component";
+import SearchResultItem from "@components/search-result-item.component";
 
 const styles = StyleSheet.create({
   root: {

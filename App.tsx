@@ -98,7 +98,7 @@ export default function App() {
                   name="Bookings"
                   component={Screens.BookedVehicles}
                   options={{
-                    headerTitle: i18n.t("tabs.bookings"),
+                    headerTitle: i18n.t("screens.bookedVehicles.headerTitle"),
                     headerShadowVisible: false,
                   }}
                 />

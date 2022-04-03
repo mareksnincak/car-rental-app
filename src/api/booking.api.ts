@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 import { TCreateBookingParams } from "@ctypes/booking.type";
+import { TBooking } from "@ctypes/booking.type";
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.API_URL}/bookings`,
@@ -18,6 +19,15 @@ const createBooking = async (bookingData: TCreateBookingParams) => {
   return response.data;
 };
 
+const getCurrentBookings = async () => {
+  const response: AxiosResponse<{ data: TBooking[] }> = await axiosInstance.get(
+    "/current"
+  );
+
+  return response.data;
+};
+
 export const BookingApi = {
   createBooking,
+  getCurrentBookings,
 };
