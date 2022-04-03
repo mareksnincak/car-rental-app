@@ -7,7 +7,7 @@ import I18n from "i18n-js";
 import axios from "axios";
 import * as Sentry from "sentry-expo";
 
-import { RootStackScreenProps } from "@ctypes/navigation.type";
+import { HomeStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
 import { BookingApi } from "@api/booking.api";
 import BookingSummary from "@components/booking-summary.component";
@@ -43,7 +43,7 @@ const CreateBookingScreen = ({
   route: {
     params: { vehicle, searchParams },
   },
-}: RootStackScreenProps<"CreateBooking">) => {
+}: HomeStackScreenProps<"CreateBooking">) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (

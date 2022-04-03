@@ -2,22 +2,18 @@ import React from "react";
 import i18n from "i18n-js";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { RootStackParamList } from "@ctypes/navigation.type";
+import { HomeStackParamList } from "@ctypes/navigation.type";
 import VehicleUtils from "@utils/vehicle.util";
-import SearchScreen from "./search.screen";
-import SearchResultScreen from "./search-result.screen";
-import VehicleDetailScreen from "./vehicle-detail.screen";
-import CreateBookingScreen from "./create-booking.screen";
-import InfoScreen from "./info.screen";
+import Screens from "@screens/index";
 
-const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
+const { Navigator, Screen } = createNativeStackNavigator<HomeStackParamList>();
 
-const HomeScreen = () => {
+const HomeStack = () => {
   return (
     <Navigator initialRouteName="Search">
       <Screen
         name="Search"
-        component={SearchScreen}
+        component={Screens.Search}
         options={{
           headerTitle: i18n.t("screens.search.headerTitle"),
           headerShadowVisible: false,
@@ -25,7 +21,7 @@ const HomeScreen = () => {
       />
       <Screen
         name="SearchResult"
-        component={SearchResultScreen}
+        component={Screens.SearchResult}
         options={{
           headerTitle: i18n.t("screens.searchResult.headerTitle"),
           headerShadowVisible: false,
@@ -33,7 +29,7 @@ const HomeScreen = () => {
       />
       <Screen
         name="VehicleDetail"
-        component={VehicleDetailScreen}
+        component={Screens.VehicleDetail}
         options={({ route }) => ({
           title: VehicleUtils.getFullVehicleName(route.params.vehicle),
           headerShadowVisible: false,
@@ -41,7 +37,7 @@ const HomeScreen = () => {
       />
       <Screen
         name="CreateBooking"
-        component={CreateBookingScreen}
+        component={Screens.CreateBooking}
         options={({ route }) => ({
           title: VehicleUtils.getFullVehicleName(route.params.vehicle),
           headerShadowVisible: false,
@@ -49,11 +45,11 @@ const HomeScreen = () => {
       />
       <Screen
         name="Info"
-        component={InfoScreen}
+        component={Screens.Info}
         options={{ headerShown: false }}
       />
     </Navigator>
   );
 };
 
-export default HomeScreen;
+export default HomeStack;

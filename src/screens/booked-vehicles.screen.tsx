@@ -1,15 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, ListRenderItemInfo, StyleSheet } from "react-native";
-import { Text, Layout, Button, List } from "@ui-kitten/components";
+import { Text, Layout, List } from "@ui-kitten/components";
 import I18n from "i18n-js";
 import * as Sentry from "sentry-expo";
 
-import { RootStackScreenProps } from "@ctypes/navigation.type";
-import { VehicleApi } from "@api/vehicle.api";
+import { BookingsStackScreenProps } from "@ctypes/navigation.type";
 import Loader from "@components/loader.component";
-import { ESortBy } from "@constants/vehicle.constant";
-import { ESortDirection } from "@constants/common.constants";
-import SearchResultItem from "@components/search-result-item.component";
 import { BookingApi } from "@api/booking.api";
 import { TBooking } from "@ctypes/booking.type";
 import BookingItem from "@components/booking-item.component";
@@ -57,7 +53,9 @@ const renderSearchResultItem = ({ item }: ListRenderItemInfo<TBooking>) => {
   return <BookingItem booking={item} />;
 };
 
-const BookedVehiclesScreen = () => {
+const BookedVehiclesScreen = ({
+  navigation,
+}: BookingsStackScreenProps<"BookedVehicles">) => {
   const [isLoading, setIsLoading] = useState(true);
   const [bookings, setBookings] = useState<TBooking[]>([]);
 
@@ -70,14 +68,12 @@ const BookedVehiclesScreen = () => {
     } catch (err) {
       Sentry.Native.captureException(err);
 
-      // TODO
-      // return navigation.navigate("Info", {
-      //   type: "error",
-      //   text: I18n.t("error.default"),
-      //   buttonText: I18n.t("common.returnHome"),
-      //   returnType: "home",
-      // });
-      throw err;
+      return navigation.navigate("Info", {
+        type: "error",
+        text: I18n.t("error.default"),
+        buttonText: I18n.t("common.returnHome"),
+        returnType: "home",
+      });
     }
   };
 

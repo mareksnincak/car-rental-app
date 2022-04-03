@@ -4,7 +4,7 @@ import { Text, Layout, Button, List } from "@ui-kitten/components";
 import I18n from "i18n-js";
 import * as Sentry from "sentry-expo";
 
-import { RootStackScreenProps } from "@ctypes/navigation.type";
+import { HomeStackScreenProps } from "@ctypes/navigation.type";
 import { TVehicle } from "@ctypes/vehicle.type";
 import { VehicleApi } from "@api/vehicle.api";
 import Loader from "@components/loader.component";
@@ -59,7 +59,7 @@ const renderSearchResultItem = (
 const SearchResultScreen = ({
   navigation,
   route,
-}: RootStackScreenProps<"SearchResult">) => {
+}: HomeStackScreenProps<"SearchResult">) => {
   const { searchParams } = route.params;
 
   const isLoading = useRef(true);

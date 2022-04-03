@@ -19,7 +19,7 @@ import "moment/locale/sk";
 
 import useCachedResources from "@hooks/useCachedResources";
 import theme from "@themes/default.theme";
-import Screens from "@screens/index";
+import Stacks from "@stacks/index";
 import { EPlatformOs } from "@constants/common.constants";
 import { DEFAULT_LOCALE } from "@constants/date.constants";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -89,17 +89,16 @@ export default function App() {
               >
                 <Screen
                   name="Home"
-                  component={Screens.Home}
+                  component={Stacks.Home}
                   options={{
                     headerShown: false,
                   }}
                 />
                 <Screen
                   name="Bookings"
-                  component={Screens.BookedVehicles}
+                  component={Stacks.Booking}
                   options={{
-                    headerTitle: i18n.t("screens.bookedVehicles.headerTitle"),
-                    headerShadowVisible: false,
+                    headerShown: false,
                   }}
                 />
               </Navigator>

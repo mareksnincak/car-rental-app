@@ -2,7 +2,7 @@ import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import { Button, Text, Layout, Icon, useTheme } from "@ui-kitten/components";
 
-import { RootStackScreenProps } from "@ctypes/navigation.type";
+import { HomeStackScreenProps } from "@ctypes/navigation.type";
 
 const styles = StyleSheet.create({
   root: {
@@ -34,7 +34,7 @@ const InfoScreen = ({
   route: {
     params: { type = "success", text, buttonText, returnType },
   },
-}: RootStackScreenProps<"Info">) => {
+}: HomeStackScreenProps<"Info">) => {
   const theme = useTheme();
 
   return (

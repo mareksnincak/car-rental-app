@@ -11,6 +11,7 @@
       "@constants/*": ["./constants/*"],
       "@hooks/*": ["./hooks/*"],
       "@screens/*": ["./screens/*"],
+      "@stacks/*": ["./stacks/*"],
       "@themes/*": ["./themes/*"],
       "@ctypes/*": ["./types/*"],
       "@utils/*": ["./utils/*"],

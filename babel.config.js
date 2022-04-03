@@ -14,6 +14,7 @@ module.exports = function(api) {
             "@constants": "./src/constants",
             "@hooks": "./src/hooks",
             "@screens": "./src/screens",
+            "@stacks": "./src/stacks",
             "@themes": "./src/themes",
             "@ctypes": "./src/types",
             "@utils": "./src/utils",

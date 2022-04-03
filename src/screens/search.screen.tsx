@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import I18n from "i18n-js";
 import moment from "moment";
 
-import { RootStackScreenProps } from "@ctypes/navigation.type";
+import { HomeStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
 import FormikMultiselect from "@components/formik/multiselect.component";
 import FormikSelect from "@components/formik/select.component";
@@ -57,7 +57,7 @@ const SearchIcon = (props: unknown) => <Icon {...props} name="search" />;
 const ExpandIcon = (props: unknown) => <Icon {...props} name="chevron-down" />;
 const CollapseIcon = (props: unknown) => <Icon {...props} name="chevron-up" />;
 
-const SearchScreen = ({ navigation }: RootStackScreenProps<"Search">) => {
+const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const startOfDay = moment().startOf("day").toDate();
