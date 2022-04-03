@@ -89,9 +89,13 @@ export default {
       },
     },
   },
+  tabs: {
+    home: "Domov",
+    bookings: "Moje vozidlá",
+  },
   screens: {
-    home: {
-      headerTitle: "Požičovňa vozidiel",
+    search: {
+      headerTitle: "Vyhľadávanie vozidiel",
       form: {
         fromDate: "Dátum vyzdvihnutia",
         fromTime: "Čas vyzdvihnutia",
@@ -114,7 +118,7 @@ export default {
       deposit: "Výška zálohy",
       price: "Cena výpožičky",
     },
-    booking: {
+    createBooking: {
       form: {
         name: {
           label: "Meno",

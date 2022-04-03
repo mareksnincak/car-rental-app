@@ -1,7 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import {
+  ApplicationProvider,
+  BottomNavigation,
+  BottomNavigationTab,
+  Icon,
+  IconRegistry,
+} from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,16 +17,13 @@ import i18n from "i18n-js";
 import * as Sentry from "sentry-expo";
 import "moment/locale/sk";
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import useCachedResources from "@hooks/useCachedResources";
 import theme from "@themes/default.theme";
-import { RootStackParamList } from "@ctypes/navigation.type";
 import Screens from "@screens/index";
-import HomeScreen from "@screens/home.screen";
 import { EPlatformOs } from "@constants/common.constants";
-import Translations from "./translations";
-import VehicleUtils from "@utils/vehicle.util";
 import { DEFAULT_LOCALE } from "@constants/date.constants";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Translations from "./translations";
 
 const enableSentry = process.env.SENTRY_ENABLED === "true";
 
@@ -31,7 +34,7 @@ Sentry.init({
   debug: enableSentry && __DEV__,
 });
 
-const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
+const { Navigator, Screen } = createBottomTabNavigator();
 
 if (Platform.OS === EPlatformOs.android) {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -65,47 +68,39 @@ export default function App() {
         >
           <SafeAreaProvider>
             <NavigationContainer>
-              <Navigator initialRouteName="Home">
+              <Navigator
+                tabBar={({ navigation, state }) => (
+                  <BottomNavigation
+                    selectedIndex={state.index}
+                    onSelect={(index) =>
+                      navigation.navigate(state.routeNames[index])
+                    }
+                  >
+                    <BottomNavigationTab
+                      title={i18n.t("tabs.home")}
+                      icon={<Icon name="home" />}
+                    />
+                    <BottomNavigationTab
+                      title={i18n.t("tabs.bookings")}
+                      icon={<Icon name="car" />}
+                    />
+                  </BottomNavigation>
+                )}
+              >
                 <Screen
                   name="Home"
-                  component={HomeScreen}
+                  component={Screens.Home}
                   options={{
-                    headerTitle: i18n.t("screens.home.headerTitle"),
-                    headerShadowVisible: false,
+                    headerShown: false,
                   }}
                 />
                 <Screen
-                  name="SearchResult"
-                  component={Screens.SearchResult}
+                  name="Bookings"
+                  component={Screens.BookedVehicles}
                   options={{
-                    headerTitle: i18n.t("screens.searchResult.headerTitle"),
+                    headerTitle: i18n.t("tabs.bookings"),
                     headerShadowVisible: false,
                   }}
-                />
-                <Screen
-                  name="VehicleDetail"
-                  component={Screens.VehicleDetail}
-                  options={({ route }) => ({
-                    title: VehicleUtils.getFullVehicleName(
-                      route.params.vehicle
-                    ),
-                    headerShadowVisible: false,
-                  })}
-                />
-                <Screen
-                  name="Booking"
-                  component={Screens.Booking}
-                  options={({ route }) => ({
-                    title: VehicleUtils.getFullVehicleName(
-                      route.params.vehicle
-                    ),
-                    headerShadowVisible: false,
-                  })}
-                />
-                <Screen
-                  name="Info"
-                  component={Screens.Info}
-                  options={{ headerShown: false }}
                 />
               </Navigator>
             </NavigationContainer>

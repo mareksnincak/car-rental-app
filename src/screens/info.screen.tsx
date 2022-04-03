@@ -59,7 +59,7 @@ const InfoScreen = ({
           onPress={() =>
             returnType === "back"
               ? navigation.goBack()
-              : navigation.navigate("Home")
+              : navigation.navigate("Search")
           }
         >
           {buttonText}

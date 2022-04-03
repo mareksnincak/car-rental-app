@@ -8,10 +8,10 @@ declare global {
 }
 
 export type RootStackParamList = {
-  Home: undefined;
+  Search: undefined;
   SearchResult: { searchParams: TSearchParams };
   VehicleDetail: { searchParams: TSearchParams; vehicle: TVehicle };
-  Booking: { searchParams: TSearchParams; vehicle: TVehicle };
+  CreateBooking: { searchParams: TSearchParams; vehicle: TVehicle };
   Info: {
     type?: "success" | "error";
     text: string;

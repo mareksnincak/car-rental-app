@@ -83,7 +83,7 @@ const VehicleDetailScreen = ({
       <Button
         style={[styles.fullWidth, styles.button]}
         onPress={() =>
-          navigation.navigate("Booking", { searchParams, vehicle })
+          navigation.navigate("CreateBooking", { searchParams, vehicle })
         }
       >
         {I18n.t("screens.vehicleDetail.book")}

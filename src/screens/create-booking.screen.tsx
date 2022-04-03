@@ -38,12 +38,12 @@ const styles = StyleSheet.create({
 
 const SpinnerIcon = (props: unknown) => <Spinner />;
 
-const BookingScreen = ({
+const CreateBookingScreen = ({
   navigation,
   route: {
     params: { vehicle, searchParams },
   },
-}: RootStackScreenProps<"Booking">) => {
+}: RootStackScreenProps<"CreateBooking">) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
@@ -77,7 +77,7 @@ const BookingScreen = ({
           ) {
             return navigation.navigate("Info", {
               type: "error",
-              text: I18n.t("screens.booking.conflict"),
+              text: I18n.t("screens.createBooking.conflict"),
               buttonText: I18n.t("common.returnHome"),
               returnType: "home",
             });
@@ -96,7 +96,7 @@ const BookingScreen = ({
 
         navigation.navigate("Info", {
           type: "success",
-          text: I18n.t("screens.booking.confirmation"),
+          text: I18n.t("screens.createBooking.confirmation"),
           buttonText: I18n.t("common.returnHome"),
           returnType: "home",
         });
@@ -111,27 +111,33 @@ const BookingScreen = ({
       {({ handleSubmit }) => (
         <Layout style={styles.container}>
           <DetailSection
-            title={I18n.t("screens.booking.bookingInfo")}
+            title={I18n.t("screens.createBooking.bookingInfo")}
             layoutProps={{
               style: [styles.fullWidth, styles.driverInfo],
             }}
           >
             <FormikInput
               name="name"
-              label={I18n.t("screens.booking.form.name.label")}
-              placeholder={I18n.t("screens.booking.form.name.placeholder")}
+              label={I18n.t("screens.createBooking.form.name.label")}
+              placeholder={I18n.t(
+                "screens.createBooking.form.name.placeholder"
+              )}
               style={[styles.fullWidth, styles.bottomPadded]}
             />
             <FormikInput
               name="idNumber"
-              label={I18n.t("screens.booking.form.idNumber.label")}
-              placeholder={I18n.t("screens.booking.form.idNumber.placeholder")}
+              label={I18n.t("screens.createBooking.form.idNumber.label")}
+              placeholder={I18n.t(
+                "screens.createBooking.form.idNumber.placeholder"
+              )}
               style={[styles.fullWidth, styles.bottomPadded]}
             />
             <FormikInput
               name="email"
-              label={I18n.t("screens.booking.form.email.label")}
-              placeholder={I18n.t("screens.booking.form.email.placeholder")}
+              label={I18n.t("screens.createBooking.form.email.label")}
+              placeholder={I18n.t(
+                "screens.createBooking.form.email.placeholder"
+              )}
               style={[styles.fullWidth, styles.bottomPadded]}
             />
           </DetailSection>
@@ -152,7 +158,7 @@ const BookingScreen = ({
             disabled={isSubmitting}
             accessoryRight={isSubmitting ? SpinnerIcon : undefined}
           >
-            {isSubmitting ? undefined : I18n.t("screens.booking.book")}
+            {isSubmitting ? undefined : I18n.t("screens.createBooking.book")}
           </Button>
         </Layout>
       )}
@@ -160,4 +166,4 @@ const BookingScreen = ({
   );
 };
 
-export default BookingScreen;
+export default CreateBookingScreen;
