@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import I18n from "i18n-js";
 import axios from "axios";
 import * as Sentry from "sentry-expo";
+import isEmail from "validator/es/lib/isEmail";
 
 import { HomeStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
@@ -105,7 +106,9 @@ const CreateBookingScreen = ({
       validationSchema={Yup.object({
         name: Yup.string().required(),
         idNumber: Yup.string().required(),
-        email: Yup.string().email().required(),
+        email: Yup.string()
+          .test((email) => (email ? isEmail(email) : false))
+          .required(),
       })}
     >
       {({ handleSubmit }) => (
