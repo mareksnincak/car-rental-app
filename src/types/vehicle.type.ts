@@ -34,7 +34,6 @@ export type TVehicle = {
 
 export type TSearchParams = {
   query?: string | null;
-  fromDate: Date | string;
   toDate: Date | string;
   driverAge: number;
   seatsMin?: number | null;

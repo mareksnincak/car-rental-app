@@ -66,9 +66,7 @@ const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
   return (
     <Formik
       initialValues={{
-        fromDate: moment().add(1, "day").startOf("day").toDate(),
         toDate: moment().add(8, "days").startOf("day").toDate(),
-        fromTime: defaultTime,
         toTime: defaultTime,
         driverAge: DRIVER_AGES[0],
         query: null,
@@ -81,44 +79,29 @@ const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
         seatsMax: null,
       }}
       onSubmit={(values) => {
-        const { fromDate, fromTime, toDate, toTime, ...otherValues } = values;
+        const { toDate, toTime, ...otherValues } = values;
 
         navigation.navigate("SearchResult", {
           searchParams: {
             ...otherValues,
-            fromDate: combineDateTime(fromDate, fromTime).toISOString(),
             toDate: combineDateTime(toDate, toTime).toISOString(),
           },
         });
       }}
       validateOnChange={false}
       validationSchema={Yup.object({
-        fromDate: Yup.date().min(startOfDay).required(),
-        fromTime: Yup.mixed()
-          .oneOf([...TIMES])
-          .required()
-          .test(function () {
-            const { fromDate, fromTime } = this.parent;
-            if (!(fromDate && fromTime)) {
-              return false;
-            }
-
-            const from = combineDateTime(fromDate, fromTime);
-            return from > new Date();
-          }),
-        toDate: Yup.date().min(Yup.ref("fromDate")).required(),
+        toDate: Yup.date().min(startOfDay).required(),
         toTime: Yup.mixed()
           .oneOf([...TIMES])
           .required()
           .test(function () {
-            const { fromDate, fromTime, toDate, toTime } = this.parent;
-            if (!(fromDate && fromTime && toDate && toTime)) {
+            const { toDate, toTime } = this.parent;
+            if (!(toDate && toTime)) {
               return false;
             }
 
-            const from = combineDateTime(fromDate, fromTime);
-            const to = combineDateTime(toDate, toTime);
-            return to > from;
+            const from = combineDateTime(toDate, toTime);
+            return from > new Date();
           }),
         driverAge: Yup.number()
           .min(Number(DRIVER_AGES[0]))
@@ -145,25 +128,6 @@ const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
     >
       {({ handleSubmit }) => (
         <Layout style={styles.container}>
-          <Layout style={[styles.inputGroup, styles.padded]}>
-            <FormikDatepicker
-              name="fromDate"
-              label={I18n.t("screens.search.form.fromDate")}
-              style={styles.inputGroupItem}
-            />
-
-            <FormikSelect
-              name="fromTime"
-              label={I18n.t("screens.search.form.fromTime")}
-              values={[...TIMES]}
-              style={styles.inputGroupItem}
-            >
-              {TIMES.map((time) => (
-                <SelectItem title={time} key={time} />
-              ))}
-            </FormikSelect>
-          </Layout>
-
           <Layout style={[styles.inputGroup, styles.padded]}>
             <FormikDatepicker
               name="toDate"

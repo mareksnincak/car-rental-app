@@ -56,13 +56,12 @@ const CreateBookingScreen = ({
       }}
       onSubmit={async (values) => {
         const { name, idNumber, email } = values;
-        const { fromDate, toDate, driverAge } = searchParams;
+        const { toDate, driverAge } = searchParams;
 
         try {
           setIsSubmitting(true);
           await BookingApi.createBooking({
             vehicleId: vehicle.id,
-            fromDate,
             toDate,
             driver: {
               name,

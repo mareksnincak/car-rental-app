@@ -22,10 +22,6 @@ const BookingSummary = ({
       title={I18n.t("screens.vehicleDetail.summary")}
     >
       <Attribute
-        label={I18n.t("screens.vehicleDetail.bookingDate")}
-        value={toReadableDate(searchParams.fromDate)}
-      />
-      <Attribute
         label={I18n.t("screens.vehicleDetail.returnDate")}
         value={toReadableDate(searchParams.toDate)}
       />

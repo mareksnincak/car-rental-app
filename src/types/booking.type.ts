@@ -2,7 +2,6 @@ import { TVehicle, TVehiclePrice } from "./vehicle.type";
 
 export type TCreateBookingParams = {
   vehicleId: string;
-  fromDate: Date | string;
   toDate: Date | string;
   driver: {
     name: string;

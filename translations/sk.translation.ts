@@ -101,7 +101,6 @@ export default {
     search: {
       headerTitle: "Vyhľadávanie vozidiel",
       form: {
-        fromDate: "Dátum vyzdvihnutia",
         fromTime: "Čas vyzdvihnutia",
         toDate: "Dátum vrátenia",
         toTime: "Čas vrátenia",
