@@ -2,7 +2,10 @@ import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import { Button, Text, Layout, Icon, useTheme } from "@ui-kitten/components";
 
-import { HomeStackScreenProps } from "@ctypes/navigation.type";
+import {
+  BookingsStackScreenProps,
+  HomeStackScreenProps,
+} from "@ctypes/navigation.type";
 
 const styles = StyleSheet.create({
   root: {
@@ -34,7 +37,7 @@ const InfoScreen = ({
   route: {
     params: { type = "success", text, buttonText, returnType },
   },
-}: HomeStackScreenProps<"Info">) => {
+}: HomeStackScreenProps<"Info"> | BookingsStackScreenProps<"Info">) => {
   const theme = useTheme();
 
   return (
@@ -59,7 +62,10 @@ const InfoScreen = ({
           onPress={() =>
             returnType === "back"
               ? navigation.goBack()
-              : navigation.navigate("Search")
+              : navigation.reset({
+                  index: 0,
+                  routes: [{ name: "Home" as any }],
+                })
           }
         >
           {buttonText}

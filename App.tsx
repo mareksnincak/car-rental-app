@@ -98,6 +98,7 @@ export default function App() {
                   name="Bookings"
                   component={Stacks.Booking}
                   options={{
+                    unmountOnBlur: true,
                     headerShown: false,
                   }}
                 />
