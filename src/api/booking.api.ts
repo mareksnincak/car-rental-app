@@ -27,7 +27,20 @@ const getCurrentBookings = async () => {
   return response.data;
 };
 
+const returnBooking = async (bookingId: string, mileage: number) => {
+  const response: AxiosResponse<TBooking> = await axiosInstance.post(
+    "/returns",
+    {
+      id: bookingId,
+      mileage,
+    }
+  );
+
+  return response.data;
+};
+
 export const BookingApi = {
   createBooking,
   getCurrentBookings,
+  returnBooking,
 };

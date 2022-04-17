@@ -49,8 +49,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const renderSearchResultItem = ({ item }: ListRenderItemInfo<TBooking>) => {
-  return <BookingItem booking={item} />;
+const renderSearchResultItem = (
+  { item }: ListRenderItemInfo<TBooking>,
+  onButtonPress: () => void
+) => {
+  return <BookingItem booking={item} onButtonPress={onButtonPress} />;
 };
 
 const BookedVehiclesScreen = ({
@@ -102,7 +105,14 @@ const BookedVehiclesScreen = ({
       <List
         style={styles.flex}
         data={bookings}
-        renderItem={(itemInfo) => renderSearchResultItem(itemInfo)}
+        renderItem={(itemInfo) =>
+          renderSearchResultItem(itemInfo, () => {
+            navigation.navigate("ReturnBooking", {
+              bookingId: itemInfo.item.id,
+              vehicleMileage: itemInfo.item.vehicle.mileage,
+            });
+          })
+        }
       />
     </Layout>
   );

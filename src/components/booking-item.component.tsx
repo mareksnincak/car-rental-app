@@ -96,7 +96,13 @@ const Footer = React.memo(
   }
 );
 
-const BookingItem = ({ booking }: { booking: TBooking }) => {
+const BookingItem = ({
+  booking,
+  onButtonPress,
+}: {
+  booking: TBooking;
+  onButtonPress: () => void;
+}) => {
   const { vehicle, price } = booking;
   return (
     <ListItem style={styles.fullWidth}>
@@ -114,7 +120,7 @@ const BookingItem = ({ booking }: { booking: TBooking }) => {
           <Footer
             price={price}
             style={viewProps?.style}
-            onButtonPress={() => {}}
+            onButtonPress={onButtonPress}
           />
         )}
       >

@@ -95,7 +95,7 @@ export default {
   },
   tabs: {
     home: "Domov",
-    bookings: "Moje vozidlá",
+    bookings: "Aktuálne výpožičky",
   },
   screens: {
     search: {
@@ -142,8 +142,20 @@ export default {
       confirmation: "Rezervácia vozidla prebehla úspešne",
       conflict: "Vozidlo už nie je dostupné, vyberte si prosím iné vozidlo",
     },
+    returnBooking: {
+      headerTitle: "Vrátenie vozidla",
+      form: {
+        mileage: {
+          label: "Aktuálny stav tachometra",
+          placeholder: "Napr. 142804",
+        },
+      },
+      invalidMileage: "Zle zadaný stav tachometra",
+      returnVehicle: "Vrátiť vozidlo",
+      confirmation: "Vozidlo bolo vrátené. Cena prenájmu: {{totalPrice}}€.",
+    },
     bookedVehicles: {
-      headerTitle: "Zapožičané vozidlá",
+      headerTitle: "Aktuálne zapožičané vozidlá",
       noBookingsFound: "Aktuálne nemáte zapožičané žiadne vozidlo",
       returnVehicle: "Vrátiť vozidlo",
     },

@@ -26,6 +26,7 @@ export type HomeStackParamList = {
 export type BookingsStackParamList = {
   BookedVehicles: undefined;
   Info: TInfoScreenProps;
+  ReturnBooking: { bookingId: string; vehicleMileage: number };
 };
 
 export type HomeStackScreenProps<Screen extends keyof HomeStackParamList> =

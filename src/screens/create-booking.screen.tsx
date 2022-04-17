@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   driverInfo: { flexDirection: "row", flexWrap: "wrap" },
 });
 
-const SpinnerIcon = (props: unknown) => <Spinner />;
+const SpinnerIcon = () => <Spinner />;
 
 const CreateBookingScreen = ({
   navigation,

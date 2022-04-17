@@ -20,6 +20,14 @@ const BookingStack = () => {
         }}
       />
       <Screen
+        name="ReturnBooking"
+        component={Screens.ReturnBooking}
+        options={{
+          title: i18n.t("screens.returnBooking.headerTitle"),
+          headerShadowVisible: false,
+        }}
+      />
+      <Screen
         name="Info"
         component={Screens.Info}
         options={{ headerShown: false }}
