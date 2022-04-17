@@ -12,7 +12,6 @@ import FormikMultiselect from "@components/formik/multiselect.component";
 import FormikSelect from "@components/formik/select.component";
 import {
   BODY_STYLES,
-  DRIVER_AGES,
   FUELS,
   TIMES,
   TRANSMISSIONS,
@@ -68,7 +67,6 @@ const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
       initialValues={{
         toDate: moment().add(8, "days").startOf("day").toDate(),
         toTime: defaultTime,
-        driverAge: DRIVER_AGES[0],
         query: null,
         bodyStyles: BODY_STYLES,
         transmissions: TRANSMISSIONS,
@@ -103,10 +101,6 @@ const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
             const from = combineDateTime(toDate, toTime);
             return from > new Date();
           }),
-        driverAge: Yup.number()
-          .min(Number(DRIVER_AGES[0]))
-          .max(Number(DRIVER_AGES[DRIVER_AGES.length - 1]))
-          .required(),
         query: Yup.string().nullable(),
         bodyStyles: Yup.array()
           .of(Yup.mixed().oneOf([...BODY_STYLES]))
@@ -146,17 +140,6 @@ const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
               ))}
             </FormikSelect>
           </Layout>
-
-          <FormikSelect
-            name="driverAge"
-            label={I18n.t("screens.search.form.driverAge")}
-            values={[...DRIVER_AGES]}
-            style={[styles.fullWidth, styles.padded]}
-          >
-            {DRIVER_AGES.map((age) => (
-              <SelectItem title={age} key={age} />
-            ))}
-          </FormikSelect>
 
           <Button
             appearance="ghost"

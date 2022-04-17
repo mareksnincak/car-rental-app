@@ -104,7 +104,6 @@ export default {
         fromTime: "Čas vyzdvihnutia",
         toDate: "Dátum vrátenia",
         toTime: "Čas vrátenia",
-        driverAge: "Vek vodiča",
       },
     },
     searchResult: {

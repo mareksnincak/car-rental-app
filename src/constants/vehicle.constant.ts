@@ -46,8 +46,6 @@ export const TIMES = [
   "23:00",
 ] as const;
 
-export const DRIVER_AGES = [...range(18, 99, 1)] as const;
-
 export const COLORS = [
   "white",
   "black",
