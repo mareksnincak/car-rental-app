@@ -62,9 +62,9 @@ const InfoScreen = ({
           onPress={() =>
             returnType === "back"
               ? navigation.goBack()
-              : navigation.reset({
+              : navigation.getParent()?.reset({
                   index: 0,
-                  routes: [{ name: "Home" as any }],
+                  routes: [{ name: "Home" }],
                 })
           }
         >
