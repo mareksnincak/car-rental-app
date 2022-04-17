@@ -103,8 +103,8 @@ const CreateBookingScreen = ({
       }}
       validateOnChange={false}
       validationSchema={Yup.object({
-        name: Yup.string().required(),
-        idNumber: Yup.string().required(),
+        name: Yup.string().trim().min(5).required(),
+        idNumber: Yup.string().trim().min(6).required(),
         email: Yup.string()
           .test((email) => (email ? isEmail(email) : false))
           .required(),
