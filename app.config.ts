@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Car rental",
   slug: "car-rental",
-  version: "1.1.4",
+  version: "1.2.0",
   orientation: "portrait",
   icon: "./src/assets/images/icon.png",
   scheme: "myapp",
