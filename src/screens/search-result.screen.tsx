@@ -65,11 +65,12 @@ const SearchResultScreen = ({
   const isLoading = useRef(true);
   const [vehicles, setVehicles] = useState<TVehicle[]>([]);
   const [page, setPage] = useState(1);
+  const [isEndOfResults, setIsEndOfResults] = useState(false);
 
   const fetchData = async () => {
     try {
       isLoading.current = true;
-      const { data } = await VehicleApi.search(searchParams, {
+      const { data, pagination } = await VehicleApi.search(searchParams, {
         page,
         pageSize: 10,
         sortBy: ESortBy.price,
@@ -79,6 +80,12 @@ const SearchResultScreen = ({
       setVehicles((prevData) => [...prevData, ...data]);
       setPage((page) => page + 1);
       isLoading.current = false;
+      if (
+        pagination.totalRecordCount <=
+        pagination.page * pagination.pageSize
+      ) {
+        setIsEndOfResults(true);
+      }
     } catch (err) {
       Sentry.Native.captureException(err);
 
@@ -129,7 +136,7 @@ const SearchResultScreen = ({
           })
         }
         onEndReached={() => {
-          if (isLoading.current) {
+          if (isLoading.current || isEndOfResults) {
             return;
           }
           fetchData();
@@ -137,7 +144,9 @@ const SearchResultScreen = ({
         onEndReachedThreshold={1}
         refreshing={isLoading.current}
         ListFooterComponent={
-          <Loader layoutProps={{ style: styles.bottomPadded }} />
+          isEndOfResults ? null : (
+            <Loader layoutProps={{ style: styles.bottomPadded }} />
+          )
         }
       />
     </Layout>
