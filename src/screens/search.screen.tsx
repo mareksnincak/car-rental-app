@@ -6,13 +6,12 @@ import * as Yup from "yup";
 import I18n from "i18n-js";
 import moment from "moment";
 
-import { RootStackScreenProps } from "@ctypes/navigation.type";
+import { HomeStackScreenProps } from "@ctypes/navigation.type";
 import FormikInput from "@components/formik/input.component";
 import FormikMultiselect from "@components/formik/multiselect.component";
 import FormikSelect from "@components/formik/select.component";
 import {
   BODY_STYLES,
-  DRIVER_AGES,
   FUELS,
   TIMES,
   TRANSMISSIONS,
@@ -57,7 +56,7 @@ const SearchIcon = (props: unknown) => <Icon {...props} name="search" />;
 const ExpandIcon = (props: unknown) => <Icon {...props} name="chevron-down" />;
 const CollapseIcon = (props: unknown) => <Icon {...props} name="chevron-up" />;
 
-const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
+const SearchScreen = ({ navigation }: HomeStackScreenProps<"Search">) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const startOfDay = moment().startOf("day").toDate();
@@ -66,11 +65,8 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   return (
     <Formik
       initialValues={{
-        fromDate: moment().add(1, "day").startOf("day").toDate(),
         toDate: moment().add(8, "days").startOf("day").toDate(),
-        fromTime: defaultTime,
         toTime: defaultTime,
-        driverAge: DRIVER_AGES[0],
         query: null,
         bodyStyles: BODY_STYLES,
         transmissions: TRANSMISSIONS,
@@ -81,49 +77,30 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         seatsMax: null,
       }}
       onSubmit={(values) => {
-        const { fromDate, fromTime, toDate, toTime, ...otherValues } = values;
+        const { toDate, toTime, ...otherValues } = values;
 
         navigation.navigate("SearchResult", {
           searchParams: {
             ...otherValues,
-            fromDate: combineDateTime(fromDate, fromTime).toISOString(),
             toDate: combineDateTime(toDate, toTime).toISOString(),
           },
         });
       }}
       validateOnChange={false}
       validationSchema={Yup.object({
-        fromDate: Yup.date().min(startOfDay).required(),
-        fromTime: Yup.mixed()
-          .oneOf([...TIMES])
-          .required()
-          .test(function () {
-            const { fromDate, fromTime } = this.parent;
-            if (!(fromDate && fromTime)) {
-              return false;
-            }
-
-            const from = combineDateTime(fromDate, fromTime);
-            return from > new Date();
-          }),
-        toDate: Yup.date().min(Yup.ref("fromDate")).required(),
+        toDate: Yup.date().min(startOfDay).required(),
         toTime: Yup.mixed()
           .oneOf([...TIMES])
           .required()
           .test(function () {
-            const { fromDate, fromTime, toDate, toTime } = this.parent;
-            if (!(fromDate && fromTime && toDate && toTime)) {
+            const { toDate, toTime } = this.parent;
+            if (!(toDate && toTime)) {
               return false;
             }
 
-            const from = combineDateTime(fromDate, fromTime);
-            const to = combineDateTime(toDate, toTime);
-            return to > from;
+            const from = combineDateTime(toDate, toTime);
+            return from > new Date();
           }),
-        driverAge: Yup.number()
-          .min(Number(DRIVER_AGES[0]))
-          .max(Number(DRIVER_AGES[DRIVER_AGES.length - 1]))
-          .required(),
         query: Yup.string().nullable(),
         bodyStyles: Yup.array()
           .of(Yup.mixed().oneOf([...BODY_STYLES]))
@@ -147,33 +124,14 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         <Layout style={styles.container}>
           <Layout style={[styles.inputGroup, styles.padded]}>
             <FormikDatepicker
-              name="fromDate"
-              label={I18n.t("screens.home.form.fromDate")}
-              style={styles.inputGroupItem}
-            />
-
-            <FormikSelect
-              name="fromTime"
-              label={I18n.t("screens.home.form.fromTime")}
-              values={[...TIMES]}
-              style={styles.inputGroupItem}
-            >
-              {TIMES.map((time) => (
-                <SelectItem title={time} key={time} />
-              ))}
-            </FormikSelect>
-          </Layout>
-
-          <Layout style={[styles.inputGroup, styles.padded]}>
-            <FormikDatepicker
               name="toDate"
-              label={I18n.t("screens.home.form.toDate")}
+              label={I18n.t("screens.search.form.toDate")}
               style={styles.inputGroupItem}
             />
 
             <FormikSelect
               name="toTime"
-              label={I18n.t("screens.home.form.toTime")}
+              label={I18n.t("screens.search.form.toTime")}
               values={[...TIMES]}
               style={styles.inputGroupItem}
             >
@@ -182,17 +140,6 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               ))}
             </FormikSelect>
           </Layout>
-
-          <FormikSelect
-            name="driverAge"
-            label={I18n.t("screens.home.form.driverAge")}
-            values={[...DRIVER_AGES]}
-            style={[styles.fullWidth, styles.padded]}
-          >
-            {DRIVER_AGES.map((age) => (
-              <SelectItem title={age} key={age} />
-            ))}
-          </FormikSelect>
 
           <Button
             appearance="ghost"
@@ -321,4 +268,4 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   );
 };
 
-export default HomeScreen;
+export default SearchScreen;

@@ -12,6 +12,10 @@ export default {
     extendedOptions: "Rozšírené vyhľadávanie",
     changeCriteria: "Zmeniť kritéria vyhľadávania",
   },
+  booking: {
+    from: "Od",
+    to: "Do",
+  },
   vehicle: {
     transmission: {
       label: "Prevodovka",
@@ -89,15 +93,17 @@ export default {
       },
     },
   },
+  tabs: {
+    home: "Domov",
+    bookings: "Aktuálne výpožičky",
+  },
   screens: {
-    home: {
-      headerTitle: "Požičovňa vozidiel",
+    search: {
+      headerTitle: "Vyhľadávanie vozidiel",
       form: {
-        fromDate: "Dátum vyzdvihnutia",
         fromTime: "Čas vyzdvihnutia",
         toDate: "Dátum vrátenia",
         toTime: "Čas vrátenia",
-        driverAge: "Vek vodiča",
       },
     },
     searchResult: {
@@ -114,7 +120,7 @@ export default {
       deposit: "Výška zálohy",
       price: "Cena výpožičky",
     },
-    booking: {
+    createBooking: {
       form: {
         name: {
           label: "Meno",
@@ -133,6 +139,23 @@ export default {
       bookingInfo: "Rezervačné údaje",
       confirmation: "Rezervácia vozidla prebehla úspešne",
       conflict: "Vozidlo už nie je dostupné, vyberte si prosím iné vozidlo",
+    },
+    returnBooking: {
+      headerTitle: "Vrátenie vozidla",
+      form: {
+        mileage: {
+          label: "Aktuálny stav tachometra",
+          placeholder: "Napr. 142804",
+        },
+      },
+      invalidMileage: "Zle zadaný stav tachometra",
+      returnVehicle: "Vrátiť vozidlo",
+      confirmation: "Vozidlo bolo vrátené. Cena prenájmu: {{totalPrice}}€.",
+    },
+    bookedVehicles: {
+      headerTitle: "Aktuálne zapožičané vozidlá",
+      noBookingsFound: "Aktuálne nemáte zapožičané žiadne vozidlo",
+      returnVehicle: "Vrátiť vozidlo",
     },
   },
   components: {

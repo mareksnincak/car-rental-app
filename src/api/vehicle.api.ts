@@ -10,6 +10,9 @@ import { serializeQueryParams } from "@utils/axios.util";
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.API_URL}/vehicles`,
+  headers: {
+    "Api-Key": process.env.API_KEY ?? "",
+  },
 });
 
 const search = async (

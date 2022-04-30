@@ -20,6 +20,12 @@ export const BODY_STYLES = [
 ] as const;
 
 export const TIMES = [
+  "0:00",
+  "1:00",
+  "2:00",
+  "3:00",
+  "4:00",
+  "5:00",
   "6:00",
   "7:00",
   "8:00",
@@ -36,9 +42,9 @@ export const TIMES = [
   "19:00",
   "20:00",
   "21:00",
+  "22:00",
+  "23:00",
 ] as const;
-
-export const DRIVER_AGES = [...range(18, 99, 1)] as const;
 
 export const COLORS = [
   "white",

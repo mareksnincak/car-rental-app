@@ -4,13 +4,13 @@ import { Text, Layout, Button, List } from "@ui-kitten/components";
 import I18n from "i18n-js";
 import * as Sentry from "sentry-expo";
 
-import { RootStackScreenProps } from "@ctypes/navigation.type";
+import { HomeStackScreenProps } from "@ctypes/navigation.type";
 import { TVehicle } from "@ctypes/vehicle.type";
 import { VehicleApi } from "@api/vehicle.api";
 import Loader from "@components/loader.component";
 import { ESortBy } from "@constants/vehicle.constant";
 import { ESortDirection } from "@constants/common.constants";
-import SearchResultItem from "@components/search-result/search-result-item.component";
+import SearchResultItem from "@components/search-result-item.component";
 
 const styles = StyleSheet.create({
   root: {
@@ -59,17 +59,18 @@ const renderSearchResultItem = (
 const SearchResultScreen = ({
   navigation,
   route,
-}: RootStackScreenProps<"SearchResult">) => {
+}: HomeStackScreenProps<"SearchResult">) => {
   const { searchParams } = route.params;
 
   const isLoading = useRef(true);
   const [vehicles, setVehicles] = useState<TVehicle[]>([]);
   const [page, setPage] = useState(1);
+  const [isEndOfResults, setIsEndOfResults] = useState(false);
 
   const fetchData = async () => {
     try {
       isLoading.current = true;
-      const { data } = await VehicleApi.search(searchParams, {
+      const { data, pagination } = await VehicleApi.search(searchParams, {
         page,
         pageSize: 10,
         sortBy: ESortBy.price,
@@ -79,6 +80,12 @@ const SearchResultScreen = ({
       setVehicles((prevData) => [...prevData, ...data]);
       setPage((page) => page + 1);
       isLoading.current = false;
+      if (
+        pagination.totalRecordCount <=
+        pagination.page * pagination.pageSize
+      ) {
+        setIsEndOfResults(true);
+      }
     } catch (err) {
       Sentry.Native.captureException(err);
 
@@ -129,7 +136,7 @@ const SearchResultScreen = ({
           })
         }
         onEndReached={() => {
-          if (isLoading.current) {
+          if (isLoading.current || isEndOfResults) {
             return;
           }
           fetchData();
@@ -137,7 +144,9 @@ const SearchResultScreen = ({
         onEndReachedThreshold={1}
         refreshing={isLoading.current}
         ListFooterComponent={
-          <Loader layoutProps={{ style: styles.bottomPadded }} />
+          isEndOfResults ? null : (
+            <Loader layoutProps={{ style: styles.bottomPadded }} />
+          )
         }
       />
     </Layout>

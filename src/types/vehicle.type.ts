@@ -10,6 +10,11 @@ export type TTransmission = typeof TRANSMISSIONS[number];
 export type TFuel = typeof FUELS[number];
 export type TBodyStyle = typeof BODY_STYLES[number];
 
+export type TVehiclePrice = {
+  total: number;
+  deposit: number;
+};
+
 export type TVehicle = {
   id: string;
   color: string;
@@ -24,17 +29,12 @@ export type TVehicle = {
   seats: number;
   doors: number;
   imageUrl: string;
-  price: {
-    total: number | null;
-    deposit: number | null;
-  };
+  price: TVehiclePrice;
 };
 
 export type TSearchParams = {
   query?: string | null;
-  fromDate: Date | string;
   toDate: Date | string;
-  driverAge: number;
   seatsMin?: number | null;
   seatsMax?: number | null;
   powerMin?: number | null;

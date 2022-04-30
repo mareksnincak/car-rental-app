@@ -3,7 +3,7 @@ import { Dimensions, Image, StyleSheet } from "react-native";
 import I18n from "i18n-js";
 
 import { Button, Divider, Layout, Text } from "@ui-kitten/components";
-import { RootStackScreenProps } from "@ctypes/navigation.type";
+import { HomeStackScreenProps } from "@ctypes/navigation.type";
 import Attribute from "@components/attribute.component";
 import DetailSection from "@components/detail-section.component";
 import BookingSummary from "@components/booking-summary.component";
@@ -36,7 +36,7 @@ const VehicleDetailScreen = ({
   route: {
     params: { vehicle, searchParams },
   },
-}: RootStackScreenProps<"VehicleDetail">) => {
+}: HomeStackScreenProps<"VehicleDetail">) => {
   return (
     <Layout style={styles.root}>
       <Image
@@ -83,7 +83,7 @@ const VehicleDetailScreen = ({
       <Button
         style={[styles.fullWidth, styles.button]}
         onPress={() =>
-          navigation.navigate("Booking", { searchParams, vehicle })
+          navigation.navigate("CreateBooking", { searchParams, vehicle })
         }
       >
         {I18n.t("screens.vehicleDetail.book")}

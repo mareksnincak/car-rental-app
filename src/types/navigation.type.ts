@@ -3,22 +3,35 @@ import { TSearchParams, TVehicle } from "./vehicle.type";
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface HomeParamList extends HomeStackParamList {}
+    interface BookingsParamList extends BookingsStackParamList {}
   }
 }
 
-export type RootStackParamList = {
-  Home: undefined;
-  SearchResult: { searchParams: TSearchParams };
-  VehicleDetail: { searchParams: TSearchParams; vehicle: TVehicle };
-  Booking: { searchParams: TSearchParams; vehicle: TVehicle };
-  Info: {
-    type?: "success" | "error";
-    text: string;
-    buttonText: string;
-    returnType: "home" | "back";
-  };
+type TInfoScreenProps = {
+  type?: "success" | "error";
+  text: string;
+  buttonText: string;
+  returnType: "home" | "back";
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, Screen>;
+export type HomeStackParamList = {
+  Search: undefined;
+  SearchResult: { searchParams: TSearchParams };
+  VehicleDetail: { searchParams: TSearchParams; vehicle: TVehicle };
+  CreateBooking: { searchParams: TSearchParams; vehicle: TVehicle };
+  Info: TInfoScreenProps;
+};
+
+export type BookingsStackParamList = {
+  BookedVehicles: undefined;
+  Info: TInfoScreenProps;
+  ReturnBooking: { bookingId: string; vehicleMileage: number };
+};
+
+export type HomeStackScreenProps<Screen extends keyof HomeStackParamList> =
+  NativeStackScreenProps<HomeStackParamList, Screen>;
+
+export type BookingsStackScreenProps<
+  Screen extends keyof BookingsStackParamList
+> = NativeStackScreenProps<BookingsStackParamList, Screen>;
